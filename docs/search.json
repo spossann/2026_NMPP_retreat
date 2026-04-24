@@ -1,0 +1,191 @@
+[
+  {
+    "objectID": "index.html#struphy-is",
+    "href": "index.html#struphy-is",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Struphy is …",
+    "text": "Struphy is …\n\n… an open-source Python package for solving partial differential equations (PDEs), primarily designed for plasma physics — though not limited to it.\n\n\n\n💯% Python — Write models in clean, readable Python.\n\n\n\n\n💥 Pyccel-powered kernels — High-performance Fortran code generated via Pyccel.\n\n\n\n\n💻 Simple API — Run complex plasma simulations with minimal boilerplate.\n\n\n\n\n🌐 Open-source & community-driven — Built for collaboration and accessibility."
+  },
+  {
+    "objectID": "index.html#numerical-methods",
+    "href": "index.html#numerical-methods",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Numerical methods",
+    "text": "Numerical methods\n\nParticle-in-cell (PIC) method for kinetic models:\n\\[\nf(t, x, v) = \\sum_k w_k\\, \\delta(x - x_k(t))\\, \\delta(v - v_k(t))\n\\]\n\n\nFinite element exterior calculus (FEEC) for fluid/field variables (via Psydac):\n\\[\n\\mathbf E(t, x) = \\sum_i e_i(t)\\, \\mathbf \\Lambda^1_i(x)\\,, \\qquad \\mathbf B(t, x) = \\sum_i b_i(t)\\, \\mathbf \\Lambda^2_i(x)\n\\]\n\n\nSmoothed Particle Hydrodynamics (SPH) for fluid models:\n\\[\nn(t, x) = \\sum_k w_k\\, W(x - x_k(t))\\,,\\qquad \\mathbf u(t, x) = \\sum_k \\frac{w_k}{n(t, x_k(t))}\\, \\mathbf v_k(t)\\, W(x - x_k(t))\n\\]\n\n\nStruphy provides MPI/OpenMP data structures for these methods (GPU via cuda-python in the second half of 2026 - ACH project Max Lindqvist)\n\n\n\\[\n\\phantom{}\n\\]\nUnder consideration: Hermite polynomials for velocity discretization (C. Negulescu)"
+  },
+  {
+    "objectID": "index.html#purpose-of-struphy",
+    "href": "index.html#purpose-of-struphy",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Purpose of Struphy",
+    "text": "Purpose of Struphy\n\n\nProvide a common Python API for researchers working on plasma physics PDEs\n\n\n\n\n(such a thing exists for quantum physics, check out QuTiP).\n\n\n\nCare about maintainable code, avoid “technical debt” in research software\n\n\n\n\nInstead of losing research code, provide a framework for its preservation and reuse.\n\n\n\n\nEnable computational plasma research for a wider audience, including students and researchers that are not experts in programming."
+  },
+  {
+    "objectID": "index.html#installation-options",
+    "href": "index.html#installation-options",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Installation Options",
+    "text": "Installation Options\n\nInstall on bare metal (Linux/macOS)\n\nFrom PyPI (recommended)\nFrom source (for development)\n\nUse Docker (cross-platform)\nRun tutorials on Binder (cloud-based)\n\n\n🌐 Repo: github.com/struphy-hub/struphy\n\n\n🌐 Docs: struphy-hub.github.io/struphy\n\n\n🌐 Tutorials: github.com/struphy-hub/struphy-tutorials"
+  },
+  {
+    "objectID": "index.html#install-on-bare-metal-linuxmacos",
+    "href": "index.html#install-on-bare-metal-linuxmacos",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Install on bare metal (Linux/macOS)",
+    "text": "Install on bare metal (Linux/macOS)\n\n\nUse a virtual environment:\n\npython -m venv struphy-env\nsource struphy-env/bin/activate \n\n\n\nFrom PyPI (with physics packages):\n\npip install -U struphy[phys]\n\n\n\nFrom source (for development):\n\ngit clone https://github.com/struphy-hub/struphy.git\ncd struphy\npip install -e .[phys,dev]\n\n\n\nCompile kernels (Fortran code generated via Pyccel):\n\nstruphy compile"
+  },
+  {
+    "objectID": "index.html#use-docker-cross-platform",
+    "href": "index.html#use-docker-cross-platform",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Use Docker (cross-platform)",
+    "text": "Use Docker (cross-platform)\n\n\nPull the latest image from Docker Hub and run it:\n\ndocker pull spossann/struphy:main\ndocker run -it --rm spossann/struphy:main\n\n\n\nList the existing environments and activate one:\n\nls struphy_*\nsource struphy_fortran_/env_fortran_/bin/activate\n\nCheck the compilation:\n\nstruphy compile --status"
+  },
+  {
+    "objectID": "index.html#run-tutorials-on-binder-cloud-based",
+    "href": "index.html#run-tutorials-on-binder-cloud-based",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Run tutorials on Binder (cloud-based)",
+    "text": "Run tutorials on Binder (cloud-based)\n\n🌐 Tutorials: github.com/struphy-hub/struphy-tutorials\n\n\n\n\n\n\nWe will run through the first few tutorials together, but feel free to explore the rest on your own time!"
+  },
+  {
+    "objectID": "index.html#models-pdes",
+    "href": "index.html#models-pdes",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Models (PDEs)",
+    "text": "Models (PDEs)\n\nfrom struphy import models\nmodels.__all__\n\n['ColdPlasma',\n 'ColdPlasmaVlasov',\n 'DeterministicParticleDiffusion',\n 'DriftKineticElectrostaticAdiabatic',\n 'GuidingCenter',\n 'HasegawaWakatani',\n 'LinearExtendedMHDuniform',\n 'LinearMHD',\n 'LinearMHDDriftkineticCC',\n 'LinearMHDVlasovCC',\n 'LinearMHDVlasovPC',\n 'LinearVlasovAmpereOneSpecies',\n 'LinearVlasovMaxwellOneSpecies',\n 'Maxwell',\n 'Poisson',\n 'PressureLessSPH',\n 'RandomParticleDiffusion',\n 'ShearAlfven',\n 'ToyDrift',\n 'TwoFluidQuasiNeutralToy',\n 'VariationalBarotropicFluid',\n 'VariationalCompressibleFluid',\n 'VariationalPressurelessFluid',\n 'ViscoResistiveDeltafMHD',\n 'ViscoResistiveDeltafMHD_with_q',\n 'ViscoResistiveLinearMHD',\n 'ViscoResistiveLinearMHD_with_q',\n 'ViscoResistiveMHD',\n 'ViscoResistiveMHD_with_p',\n 'ViscoResistiveMHD_with_q',\n 'ViscousEulerSPH',\n 'ViscousFluid',\n 'Vlasov',\n 'VlasovAmpereOneSpecies',\n 'VlasovMaxwellOneSpecies']"
+  },
+  {
+    "objectID": "index.html#model-info",
+    "href": "index.html#model-info",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Model Info",
+    "text": "Model Info\n\nfrom struphy.models import Maxwell\nMaxwell.info()\n\nMaxwell's equations in vacuum for electromagnetic field evolution.\n\n\nTo see detailed information on the model, run the following methods:\n\nMaxwell.pde()\nMaxwell.normalization()\nMaxwell.scalar_quantities()\nMaxwell.discretization()\nMaxwell.long_description()\nMaxwell.examples()\nMaxwell.use_cases()\nMaxwell.cannot_be_used_for()"
+  },
+  {
+    "objectID": "index.html#create-a-simulation",
+    "href": "index.html#create-a-simulation",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Create a Simulation",
+    "text": "Create a Simulation\n\nfrom struphy import Simulation\n\nmodel = Maxwell()\nsim = Simulation(model=model, verbose=True)"
+  },
+  {
+    "objectID": "index.html#run",
+    "href": "index.html#run",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Run",
+    "text": "Run\n\nsim.run(verbose=True)"
+  },
+  {
+    "objectID": "index.html#time-grid-and-derham-options",
+    "href": "index.html#time-grid-and-derham-options",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Time, grid, and Derham options",
+    "text": "Time, grid, and Derham options\n\nfrom struphy import Time, grids, DerhamOptions\n\ntime_opts = Time(dt=0.1, Tend=0.3)\n\ngrid = grids.TensorProductGrid(num_elements=(32, 1, 1))\n\nderham_opts = DerhamOptions(degree=(3, 1, 1))\n\n\nFor more info on available options, see the API guide in the Struphy docs:\n\n🌐 Docs: struphy-hub.github.io/struphy\n\nA good way to explore the options is to use Pylance in your code editor (e.g., VSCode) to inspect the available attributes and their docstrings."
+  },
+  {
+    "objectID": "index.html#new-model-object-with-initial-conditions",
+    "href": "index.html#new-model-object-with-initial-conditions",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "New model object with initial conditions",
+    "text": "New model object with initial conditions\n\nmodel = Maxwell()\nprint(model)\n\nMaxwell\n    em_fields:\n        e_field:    FEECVariable (Hcurl)\n        b_field:    FEECVariable (Hdiv)\n\n\n\n\n\nfrom struphy import perturbations\n\nfun1 = perturbations.ModesCos(ls=(1,), amps=(1e-1,), comp=1)\nfun2 = perturbations.ModesSin(ls=(2,), amps=(1e-2,), comp=2)\n\nmodel.em_fields.e_field.add_perturbation(perturbation=fun1)\nmodel.em_fields.e_field.add_perturbation(perturbation=fun2)\n\n\n\nCheck what the perturbations look like:\n\nfrom matplotlib import pyplot as plt\nimport numpy as np\n\nfig, axes = plt.subplots(1, 2, figsize=(10, 4))\n\nx = np.linspace(0, 1, 100)\n\n# Plot 1: First component in x-direction\naxes[0].plot(fun1(x, 0.5, 0.5))\naxes[0].set_title(\"fun1 (E-field y-component)\")\naxes[0].set_xlabel(\"x\")\naxes[0].set_ylabel(\"Value\")\n\n# Plot 2: Add your second plot\naxes[1].plot(fun2(x, 0.5, 0.5))\naxes[1].set_title(\"fun2 (E-field z-component)\")\naxes[1].set_xlabel(\"x\")\naxes[1].set_ylabel(\"Value\")\n\nplt.tight_layout()"
+  },
+  {
+    "objectID": "index.html#create-a-new-simulation-object",
+    "href": "index.html#create-a-new-simulation-object",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Create a new simulation object",
+    "text": "Create a new simulation object\nThe following simulation will inherit all the initial conditions and parameters from sim, except for the ones we explicitly override.\n\nsim2 = Simulation(\n    model=model,\n    time_opts=time_opts,\n    grid=grid,\n    derham_opts=derham_opts,\n    verbose=True,\n)"
+  },
+  {
+    "objectID": "index.html#you-can-compare-sim-objects",
+    "href": "index.html#you-can-compare-sim-objects",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "You can compare sim objects",
+    "text": "You can compare sim objects\n\nsim == sim2\n\nFalse\n\n\n\nWe can serialze sims through dicts:\n\nsim3 = Simulation.from_dict(sim.to_dict())\n\nsim == sim3\n\nTrue\n\n\n\n\nThis is the same as\n\nsim4 = sim.spawn_sister()\n\nsim == sim4\n\nTrue\n\n\n\n\nOnly in devel so far - not yet in main:\n\nsim.export(\"sim.yaml\")\nsim5 = Simulation.from_file(\"sim.yaml\")\nassert sim == sim5"
+  },
+  {
+    "objectID": "index.html#run-and-post-process",
+    "href": "index.html#run-and-post-process",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Run and post process",
+    "text": "Run and post process\nRun:\n\nsim2.run()\n\n\nUse the pproc method for flexibility in post-processing and visualization:\n\nsim2.pproc()"
+  },
+  {
+    "objectID": "index.html#load-plotting-data",
+    "href": "index.html#load-plotting-data",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Load plotting data",
+    "text": "Load plotting data\n\nsim2.load_plotting_data()"
+  },
+  {
+    "objectID": "index.html#inspect-data-types",
+    "href": "index.html#inspect-data-types",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Inspect data types",
+    "text": "Inspect data types\n\ne_field = sim2.spline_values.em_fields.e_field_log\nprint(e_field)\n\ntype(self.data) = &lt;class 'dict'&gt;\nlen(self.data) = 4\nkey = np.float64(0.0)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]\nkey = np.float64(0.1)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]\nkey = np.float64(0.2)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]\nkey = np.float64(0.3)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]"
+  },
+  {
+    "objectID": "index.html#plot-snapshots",
+    "href": "index.html#plot-snapshots",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Plot snapshots",
+    "text": "Plot snapshots\n\nfig, axes = plt.subplots(4, 3, figsize=(15, 12))\n\nfor n, (time, data) in enumerate(e_field.data.items()):\n    \n  # Plot 1: First component in x-direction\n  axes[n, 0].plot(data[0][:, 0, 0])\n  axes[n, 0].set_title(f\"E_1 (x-direction) at time {time}\")\n  axes[n, 0].set_xlabel(\"x\")\n  axes[n, 0].set_ylabel(\"Value\")\n  axes[n, 0].set_ylim(-1.5e-1, 1.5e-1)  # Set y-limits for better comparison across time steps\n\n  # Plot 2: Add your second plot\n  axes[n, 1].plot(data[1][:, 0, 0])\n  axes[n, 1].set_title(f\"E_2 (x-direction) at time {time} \")\n  axes[n, 1].set_xlabel(\"x\")\n  axes[n, 1].set_ylabel(\"Value\")\n  axes[n, 1].set_ylim(-1.5e-1, 1.5e-1)  # Set y-limits for better comparison across time steps\n  # Plot 3: Add your third plot\n  axes[n, 2].plot(data[2][:, 0, 0])\n  axes[n, 2].set_title(f\"E_3 (x-direction) at time {time}\")\n  axes[n, 2].set_xlabel(\"x\")\n  axes[n, 2].set_ylabel(\"Value\")\n  axes[n, 2].set_ylim(-1.5e-1, 1.5e-1)\n\nplt.tight_layout()"
+  },
+  {
+    "objectID": "index.html#default-launch-files-from-cli",
+    "href": "index.html#default-launch-files-from-cli",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Default launch files from CLI",
+    "text": "Default launch files from CLI\nstruphy params MODEL\nThis will create a file params_MODEL.py in the current working directory.\n\nTo run the model type\npython params_MODEL.py\n\n\nFor parallel runs, use\nmpirun -n N python params_MODEL.py\nor copy the command to a job script for your cluster’s scheduler (e.g., SLURM, PBS)."
+  },
+  {
+    "objectID": "index.html#example-vlasov-ampère-model",
+    "href": "index.html#example-vlasov-ampère-model",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Example: Vlasov-Ampère model",
+    "text": "Example: Vlasov-Ampère model\n\nfrom struphy.models import VlasovAmpereOneSpecies\nVlasovAmpereOneSpecies.info()\n\nVlasov-Ampère system for a single kinetic species in an electric field.\n\n\nTo see detailed information on the model, run the following methods:\n\nVlasovAmpereOneSpecies.pde()\nVlasovAmpereOneSpecies.normalization()\nVlasovAmpereOneSpecies.scalar_quantities()\nVlasovAmpereOneSpecies.discretization()\nVlasovAmpereOneSpecies.long_description()\nVlasovAmpereOneSpecies.examples()\nVlasovAmpereOneSpecies.use_cases()\nVlasovAmpereOneSpecies.cannot_be_used_for()"
+  },
+  {
+    "objectID": "index.html#launch-file-api",
+    "href": "index.html#launch-file-api",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Launch file API",
+    "text": "Launch file API\nstruphy params VlasovAmpereOneSpecies\ncat params_VlasovAmpereOneSpecies.py \nOr inspect in your favorite code editor, for live inspection and editing:"
+  },
+  {
+    "objectID": "index.html#example-linearmhd",
+    "href": "index.html#example-linearmhd",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Example: LinearMHD",
+    "text": "Example: LinearMHD\n\nfrom struphy.models import LinearMHD\nLinearMHD.info()\n\nfrom struphy import domains, equils\n\nLinear ideal MHD with zero-flow equilibrium for magnetohydrodynamic wave propagation.\n\n\nTo see detailed information on the model, run the following methods:\n\nLinearMHD.pde()\nLinearMHD.normalization()\nLinearMHD.scalar_quantities()\nLinearMHD.discretization()\nLinearMHD.long_description()\nLinearMHD.examples()\nLinearMHD.use_cases()\nLinearMHD.cannot_be_used_for()"
+  },
+  {
+    "objectID": "index.html#example-linearmhd-ctd.",
+    "href": "index.html#example-linearmhd-ctd.",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Example: LinearMHD (ctd.)",
+    "text": "Example: LinearMHD (ctd.)\n\nmodel = LinearMHD()\ndomain = domains.DESCunit()\nequil = equils.DESCequilibrium(use_nfp=False)\n\nsim = Simulation(\n    model=model,\n    domain=domain,\n    equil=equil,\n)\n\nsim.show_domain(scalars=\"absB0\", window_size = (850, 250), zoom_factor=2.0)"
+  },
+  {
+    "objectID": "index.html#example-files",
+    "href": "index.html#example-files",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Example files",
+    "text": "Example files\nVisit the repo for example parameter files:\n\n🌐 Repo: github.com/struphy-hub/struphy-parameter-files\n\nEasy to launch and post-process examples:\ncd VlasovAmpereOneSpecies\ncd two_stream\npython params_two_stream.py\npython pproc_two_stream.py"
+  },
+  {
+    "objectID": "index.html#benchmarks",
+    "href": "index.html#benchmarks",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Benchmarks",
+    "text": "Benchmarks\nIn the making …\n\nCurrent work focuses on benchmarking against other HPC plasma codes such as GEMPICX, GENE, ORB5, and JOREK, as well as against analytical solutions for linear instabilities and nonlinear dynamics."
+  },
+  {
+    "objectID": "index.html#plasma-hpc-framework-in-python",
+    "href": "index.html#plasma-hpc-framework-in-python",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Plasma HPC framework in Python",
+    "text": "Plasma HPC framework in Python\n\nStruphy 3.0: A structure-preserving hybrid code for plasma simulations in Python.\nCombines particle and grid methods with high-performance kernels (Pyccel).\nEasy-to-use API for setting up and running complex plasma simulations.\nYou can integrate your model into the API.\nOpen-source and community-driven development - get in touch!\nQR code to the slides below - Thank you!"
+  }
+]
