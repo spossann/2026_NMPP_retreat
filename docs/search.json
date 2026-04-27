@@ -11,7 +11,7 @@
     "href": "index.html#numerical-methods",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
     "section": "Numerical methods",
-    "text": "Numerical methods\n\nParticle-in-cell (PIC) method for kinetic models:\n\\[\nf(t, x, v) = \\sum_k w_k\\, \\delta(x - x_k(t))\\, \\delta(v - v_k(t))\n\\]\n\n\nFinite element exterior calculus (FEEC) for fluid/field variables (via Psydac):\n\\[\n\\mathbf E(t, x) = \\sum_i e_i(t)\\, \\mathbf \\Lambda^1_i(x)\\,, \\qquad \\mathbf B(t, x) = \\sum_i b_i(t)\\, \\mathbf \\Lambda^2_i(x)\n\\]\n\n\nSmoothed Particle Hydrodynamics (SPH) for fluid models:\n\\[\nn(t, x) = \\sum_k w_k\\, W(x - x_k(t))\\,,\\qquad \\mathbf u(t, x) = \\sum_k \\frac{w_k}{n(t, x_k(t))}\\, \\mathbf v_k(t)\\, W(x - x_k(t))\n\\]\n\n\nStruphy provides MPI/OpenMP data structures for these methods (GPU via cuda-python in the second half of 2026 - ACH project Max Lindqvist)\n\n\n\\[\n\\phantom{}\n\\]\nUnder consideration: Hermite polynomials for velocity discretization (C. Negulescu)"
+    "text": "Numerical methods\n\nParticle-in-cell (PIC) method for kinetic models:\n\\[\nf(t, x, v) = \\sum_k w_k\\, \\delta(x - x_k(t))\\, \\delta(v - v_k(t))\n\\]\n\n\nFinite element exterior calculus (FEEC) for fluid/field variables (via Psydac):\n\\[\n\\mathbf E(t, x) = \\sum_i e_i(t)\\, \\mathbf \\Lambda^1_i(x)\\,, \\qquad \\mathbf B(t, x) = \\sum_i b_i(t)\\, \\mathbf \\Lambda^2_i(x)\n\\]\n\n\nSmoothed Particle Hydrodynamics (SPH) for fluid models:\n\\[\nn(t, x) = \\sum_k w_k\\, W(x - x_k(t))\\,,\\qquad \\mathbf u(t, x) = \\sum_k \\frac{w_k}{n(t, x_k(t))}\\, \\mathbf v_k(t)\\, W(x - x_k(t))\n\\]\n\n\nStruphy provides MPI/OpenMP data structures for these methods (GPU via cuda-python in the second half of 2026 - ACH project 6 months).\n\n\nUnder consideration: Hermite polynomials for velocity discretization (C. Negulescu)"
   },
   {
     "objectID": "index.html#purpose-of-struphy",
@@ -19,6 +19,13 @@
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
     "section": "Purpose of Struphy",
     "text": "Purpose of Struphy\n\n\nProvide a common Python API for researchers working on plasma physics PDEs\n\n\n\n\n(such a thing exists for quantum physics, check out QuTiP).\n\n\n\nCare about maintainable code, avoid “technical debt” in research software\n\n\n\n\nInstead of losing research code, provide a framework for its preservation and reuse.\n\n\n\n\nEnable computational plasma research for a wider audience, including students and researchers that are not experts in programming."
+  },
+  {
+    "objectID": "index.html#current-team",
+    "href": "index.html#current-team",
+    "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
+    "section": "Current team",
+    "text": "Current team\n\nAmin Raissi (PhD student with Omar Maj): SPH discretization of viscous Euler equations\nLorenzo Mazzi (Master student with Omar Maj): high frequency decomposition in Euler-Maxwell equations\nEmile Grivet (4 month intership from Paris-Saclay): Benchmarking ITG turbulence with drift-kinetic equations in Struphy\nDavid Székedi (internship from TU delft, remote): saddle point problem for quasi-neutral two-fluid equations\nMax Lindqvist (ACH): Maintainer"
   },
   {
     "objectID": "index.html#installation-options",
@@ -32,160 +39,160 @@
     "href": "index.html#install-on-bare-metal-linuxmacos",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
     "section": "Install on bare metal (Linux/macOS)",
-    "text": "Install on bare metal (Linux/macOS)\n\n\nUse a virtual environment:\n\npython -m venv struphy-env\nsource struphy-env/bin/activate \n\n\n\nFrom PyPI (with physics packages):\n\npip install -U struphy[phys]\n\n\n\nFrom source (for development):\n\ngit clone https://github.com/struphy-hub/struphy.git\ncd struphy\npip install -e .[phys,dev]\n\n\n\nCompile kernels (Fortran code generated via Pyccel):\n\nstruphy compile"
+    "text": "Install on bare metal (Linux/macOS)\n\n\nUse a virtual environment:\n\npython -m venv struphy-env\nsource struphy-env/bin/activate \n\n\n\nFrom PyPI (with physics packages and MPI support):\n\npip install -U struphy[phys,mpi]\n\n\n\nFrom source (for development):\n\ngit clone https://github.com/struphy-hub/struphy.git\ncd struphy\npip install -e .[phys,dev]\n\n\n\nCompile kernels (Fortran code generated via Pyccel):\n\nstruphy compile"
   },
   {
     "objectID": "index.html#use-docker-cross-platform",
     "href": "index.html#use-docker-cross-platform",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
     "section": "Use Docker (cross-platform)",
-    "text": "Use Docker (cross-platform)\n\n\nPull the latest image from Docker Hub and run it:\n\ndocker pull spossann/struphy:main\ndocker run -it --rm spossann/struphy:main\n\n\n\nList the existing environments and activate one:\n\nls struphy_*\nsource struphy_fortran_/env_fortran_/bin/activate\n\nCheck the compilation:\n\nstruphy compile --status"
+    "text": "Use Docker (cross-platform)\n\n\nPull the latest image from Docker Hub and run it:\n\ndocker pull spossann/struphy:main\ndocker run -it --rm spossann/struphy:main\n\n\n\nList the existing environments and activate one:\n\nls struphy_*\nsource struphy_fortran_/env_fortran_/bin/activate\nstruphy -v\n\nCheck the compilation:\n\nstruphy compile --status"
   },
   {
     "objectID": "index.html#run-tutorials-on-binder-cloud-based",
     "href": "index.html#run-tutorials-on-binder-cloud-based",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
     "section": "Run tutorials on Binder (cloud-based)",
-    "text": "Run tutorials on Binder (cloud-based)\n\n🌐 Tutorials: github.com/struphy-hub/struphy-tutorials\n\n\n\n\n\n\nWe will run through the first few tutorials together, but feel free to explore the rest on your own time!"
+    "text": "Run tutorials on Binder (cloud-based)\n\n🌐 Tutorials: github.com/struphy-hub/struphy-tutorials"
   },
   {
-    "objectID": "index.html#models-pdes",
-    "href": "index.html#models-pdes",
+    "objectID": "index.html#run-examples",
+    "href": "index.html#run-examples",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Models (PDEs)",
-    "text": "Models (PDEs)\n\nfrom struphy import models\nmodels.__all__\n\n['ColdPlasma',\n 'ColdPlasmaVlasov',\n 'DeterministicParticleDiffusion',\n 'DriftKineticElectrostaticAdiabatic',\n 'GuidingCenter',\n 'HasegawaWakatani',\n 'LinearExtendedMHDuniform',\n 'LinearMHD',\n 'LinearMHDDriftkineticCC',\n 'LinearMHDVlasovCC',\n 'LinearMHDVlasovPC',\n 'LinearVlasovAmpereOneSpecies',\n 'LinearVlasovMaxwellOneSpecies',\n 'Maxwell',\n 'Poisson',\n 'PressureLessSPH',\n 'RandomParticleDiffusion',\n 'ShearAlfven',\n 'ToyDrift',\n 'TwoFluidQuasiNeutralToy',\n 'VariationalBarotropicFluid',\n 'VariationalCompressibleFluid',\n 'VariationalPressurelessFluid',\n 'ViscoResistiveDeltafMHD',\n 'ViscoResistiveDeltafMHD_with_q',\n 'ViscoResistiveLinearMHD',\n 'ViscoResistiveLinearMHD_with_q',\n 'ViscoResistiveMHD',\n 'ViscoResistiveMHD_with_p',\n 'ViscoResistiveMHD_with_q',\n 'ViscousEulerSPH',\n 'ViscousFluid',\n 'Vlasov',\n 'VlasovAmpereOneSpecies',\n 'VlasovMaxwellOneSpecies']"
+    "section": "Run examples",
+    "text": "Run examples\nVisit the repo for example parameter files:\n\n🌐 Repo: github.com/struphy-hub/struphy-parameter-files\n\nEasy to launch and post-process examples:\ncd VlasovAmpereOneSpecies\ncd two_stream\npython params_two_stream.py\npython pproc_two_stream.py"
   },
   {
-    "objectID": "index.html#model-info",
-    "href": "index.html#model-info",
+    "objectID": "index.html#check-version-in-cli",
+    "href": "index.html#check-version-in-cli",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Model Info",
-    "text": "Model Info\n\nfrom struphy.models import Maxwell\nMaxwell.info()\n\nMaxwell's equations in vacuum for electromagnetic field evolution.\n\n\nTo see detailed information on the model, run the following methods:\n\nMaxwell.pde()\nMaxwell.normalization()\nMaxwell.scalar_quantities()\nMaxwell.discretization()\nMaxwell.long_description()\nMaxwell.examples()\nMaxwell.use_cases()\nMaxwell.cannot_be_used_for()"
+    "section": "Check version in CLI",
+    "text": "Check version in CLI\nstruphy -v\n\n\n\nStruphy 3.1.0\nCopyright 2019-2026 (c) Struphy dev team | Max Planck Institute for Plasma Physics\nMIT license\n\n\n\n\nGet more info in CLI:\nstruphy --help\n\n\n\n\nusage: struphy [-h] [-v] [-s] [--fluid] [--kinetic] [--hybrid] COMMAND ...\n\nStruphy: STRUcture-Preserving HYbrid code for plasma physics.\n\noptions:\n  -h, --help        show this help message and exit\n  -v, --version     show program's version number and exit\n  -s, --short-help  display short help\n  --fluid           display available fluid models\n  --kinetic         display available kinetic models\n  --hybrid          display available hybrid models\n\navailable commands:\n  compile           compile computational kernels (including psydac)\n  params            create default parameter file for a model, or show model's options\n  profile           profile finished runs\n  test              run tests\n  format            format source files\n  lint              lint and analyze source files\n\nType \"struphy COMMAND --help\" for more information on a command.\n\nFor more help on how to use Struphy, see https://struphy-hub.github.io/struphy/"
   },
   {
-    "objectID": "index.html#create-a-simulation",
-    "href": "index.html#create-a-simulation",
+    "objectID": "index.html#import-model",
+    "href": "index.html#import-model",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Create a Simulation",
-    "text": "Create a Simulation\n\nfrom struphy import Simulation\n\nmodel = Maxwell()\nsim = Simulation(model=model, verbose=True)"
+    "section": "Import model",
+    "text": "Import model\n\nfrom struphy.models import Maxwell\n\nMaxwell.info()\n\n\nMaxwell's equations in vacuum for electromagnetic field evolution.\nTo see detailed information on the model, run the following methods:\n\nMaxwell.pde()\nMaxwell.normalization()\nMaxwell.scalar_quantities()\nMaxwell.discretization()\nMaxwell.long_description()\nMaxwell.examples()\nMaxwell.use_cases()\nMaxwell.cannot_be_used_for()\n\n\n\n\nMaxwell.pde()\n\n\nPDEs solved by model:\n\n        Ampère's law (no current):\n\n        ∂𝐄∂t - ∇ × 𝐁 = 0\n        Faraday's law:\n\n        ∂𝐁∂t + ∇ × 𝐄 = 0\n\n\n\n\n\nMaxwell.normalization()\n\n\nNormalization:\nVelocity and fields are normalized as:\n\n        v̂ = c ,   Ê = c B̂\n        where c is the speed of light.\n\n\n\n\n\nMaxwell.scalar_quantities()\n\n\nThe following scalars are tracked during simulation:\n\n\n\n    Electric energy: EE = 1⁄2 ∫ |𝐄|²   dV\n    Magnetic energy: EB = 1⁄2 ∫ |𝐁|²   dV\n    Total energy: Eₜₒₜₐₗ = EE + EB\n\n\n\n\n\n\nMaxwell.discretization()\n\nDiscretization (Propagators called in sequence):\n\n1. propagators_fields.Maxwell:\n\nFEEC discretization of the following equations:\n    find 𝐄 ∈ H(curl) and  𝐁 ∈ H(div) such that\n\n\n    \n\n\n\n∫Ω ∂𝐄∂t · 𝐅   d 𝐱 - ∫Ω 𝐁 · ∇ × 𝐅  d 𝐱\n=0 ,    ∀   𝐅 ∈ H(curl)\n\n\n∂𝐁∂t + ∇×𝐄\n=0 .\n\n\n\n\n    Time discretization:\n\n\n\n    implicit: Crank-Nicolson (implicit mid-point)\n    explicit: explicit RK methods from ButcherTableau\n\n\n    System size reduction via struphy.linear_algebra.schur_solver.SchurSolver."
   },
   {
-    "objectID": "index.html#run",
-    "href": "index.html#run",
+    "objectID": "index.html#run-a-simulation",
+    "href": "index.html#run-a-simulation",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Run",
-    "text": "Run\n\nsim.run(verbose=True)"
+    "section": "Run a Simulation",
+    "text": "Run a Simulation\n\nfrom struphy import Simulation\n\nmodel = Maxwell()\nsim = Simulation(model=model)\n\n\nRun the simulation:\n\nsim.run()\n\n\nStarting simulation run for model Maxwell ...\nStruphy run finished.\n\n\n\n\nPost-process the simulation:\n\nsim.pproc()\n\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 252.55it/s]\n  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 472.88it/s]\n  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 881.39it/s]\n\n\n\n\nLoad plotting data\n\nsim.load_plotting_data()"
   },
   {
-    "objectID": "index.html#time-grid-and-derham-options",
-    "href": "index.html#time-grid-and-derham-options",
+    "objectID": "index.html#run-more-verbosely",
+    "href": "index.html#run-more-verbosely",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Time, grid, and Derham options",
-    "text": "Time, grid, and Derham options\n\nfrom struphy import Time, grids, DerhamOptions\n\ntime_opts = Time(dt=0.1, Tend=0.3)\n\ngrid = grids.TensorProductGrid(num_elements=(32, 1, 1))\n\nderham_opts = DerhamOptions(degree=(3, 1, 1))\n\n\nFor more info on available options, see the API guide in the Struphy docs:\n\n🌐 Docs: struphy-hub.github.io/struphy\n\nA good way to explore the options is to use Pylance in your code editor (e.g., VSCode) to inspect the available attributes and their docstrings."
+    "section": "Run more verbosely",
+    "text": "Run more verbosely\n\nfrom struphy import set_logging_level\nimport logging\n\nset_logging_level(logging.INFO)\n\n\n\nsim = Simulation(model=model)\nsim.run()\n\n\nStarting simulation run for model Maxwell ...\n\nPROPAGATOR OPTIONS:\n\nOptions for propagator 'Maxwell':\n    algo:               implicit\n    solver:             pcg\n    precond:            MassMatrixPreconditioner\n    solver_params:      SolverParameters(tol=1e-08, maxiter=3000, info=False, verbose=False, recycle=True)\n    butcher:            None\n\nINITIAL CONDITIONS:\n\nVariable 'e_field' of species 'EMFields' - no background.\n\nVariable 'e_field' of species 'EMFields' - no perturbation.\n\nVariable 'b_field' of species 'EMFields' - no background.\n\nVariable 'b_field' of species 'EMFields' - no perturbation.\n\nAllocating simulation data ...\n\nWARNING: Class \"BasisProjectionOperators\" called with degree=(1, 1, 1) (interpolation of piece-wise constants should be avoided).\n\nAllocated SplineFuntion 'e_field' in space 'Hcurl'.\n\nAllocated SplineFuntion 'b_field' in space 'Hdiv'.\n\nRank 0: executing run() for model Maxwell ...\n\nINITIAL SCALAR QUANTITIES:\nelectric_energy:                          0.00e+00\nmagnetic_energy:                          0.00e+00\ntotal_energy:                             0.00e+00\n\n\nSTART TIME STEPPING WITH 'LieTrotter' SPLITTING:\ntime step:                                     1/3\nnormalized time:               1.00e-02 / 3.00e-02\nphysical time [s]:             3.34e-11 / 1.00e-10\nwall clock time [s]:                        0.2221\nlast step duration [s]:                     0.0098\nelectric_energy:                          0.00e+00\nmagnetic_energy:                          0.00e+00\ntotal_energy:                             0.00e+00\n\ntime step:                                     2/3\nnormalized time:               2.00e-02 / 3.00e-02\nphysical time [s]:             6.67e-11 / 1.00e-10\nwall clock time [s]:                        0.2467\nlast step duration [s]:                     0.0102\nelectric_energy:                          0.00e+00\nmagnetic_energy:                          0.00e+00\ntotal_energy:                             0.00e+00\n\ntime step:                                     3/3\nnormalized time:               3.00e-02 / 3.00e-02\nphysical time [s]:             1.00e-10 / 1.00e-10\nwall clock time [s]:                        0.2637\nlast step duration [s]:                     0.0092\nelectric_energy:                          0.00e+00\nmagnetic_energy:                          0.00e+00\ntotal_energy:                             0.00e+00\n\n\nTime steps done: 3\nwall-clock time of simulation [sec]: 0.27837443351745605\n\nStruphy run finished.\n\n\n\n\nPost-process the simulation:\n\nsim.pproc()\n\n\nPost-processing path /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1\n\nReading hdf5 data of following species:\nem_fields:\n  b_field: &lt;HDF5 group \"/feec/em_fields/b_field\" (3 members)&gt;\n  e_field: &lt;HDF5 group \"/feec/em_fields/e_field\" (3 members)&gt;\n\nAllocated SplineFuntion 'b_field' in space 'Hdiv'.\n\nAllocated SplineFuntion 'e_field' in space 'Hcurl'.\n\nAllocated SplineFuntion 'b_field' in space 'Hdiv'.\n\nAllocated SplineFuntion 'e_field' in space 'Hcurl'.\n\nAllocated SplineFuntion 'b_field' in space 'Hdiv'.\n\nAllocated SplineFuntion 'e_field' in space 'Hcurl'.\n\nAllocated SplineFuntion 'b_field' in space 'Hdiv'.\n\nAllocated SplineFuntion 'e_field' in space 'Hcurl'.\n\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 257.67it/s]\nCreation of Struphy Fields done.\n\nEvaluating fields ...\n  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 419.24it/s]\n\nCreating vtk in /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing/fields_data ...\n  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 610.30it/s]\n\nNo kinetic data found in hdf5 file, skipping post-processing of kinetic data.\n\n\n\n\nLoad plotting data\n\nsim.load_plotting_data()\n\n\nLoading post-processed plotting data:\nData path: /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing\n\nFiles in /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing/fields_data/em_fields: ['e_field_log.bin', 'b_field_log.bin']\n\nThe following data has been loaded:\n\ngrids:\nself.t_grid.shape =(4,)\nself.grids_log[0].shape =(25,)\nself.grids_log[1].shape =(11,)\nself.grids_log[2].shape =(2,)\nself.grids_phy[0].shape =(25, 11, 2)\nself.grids_phy[1].shape =(25, 11, 2)\nself.grids_phy[2].shape =(25, 11, 2)\n\nself.spline_values:\n    em_fields\n        e_field_log\n        b_field_log\n\nself.orbits:\n\nself.f:\n\nself.n_sph:"
   },
   {
-    "objectID": "index.html#new-model-object-with-initial-conditions",
-    "href": "index.html#new-model-object-with-initial-conditions",
+    "objectID": "index.html#poisson-tutorial-written-by-copilot",
+    "href": "index.html#poisson-tutorial-written-by-copilot",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "New model object with initial conditions",
-    "text": "New model object with initial conditions\n\nmodel = Maxwell()\nprint(model)\n\nMaxwell\n    em_fields:\n        e_field:    FEECVariable (Hcurl)\n        b_field:    FEECVariable (Hdiv)\n\n\n\n\n\nfrom struphy import perturbations\n\nfun1 = perturbations.ModesCos(ls=(1,), amps=(1e-1,), comp=1)\nfun2 = perturbations.ModesSin(ls=(2,), amps=(1e-2,), comp=2)\n\nmodel.em_fields.e_field.add_perturbation(perturbation=fun1)\nmodel.em_fields.e_field.add_perturbation(perturbation=fun2)\n\n\n\nCheck what the perturbations look like:\n\nfrom matplotlib import pyplot as plt\nimport numpy as np\n\nfig, axes = plt.subplots(1, 2, figsize=(10, 4))\n\nx = np.linspace(0, 1, 100)\n\n# Plot 1: First component in x-direction\naxes[0].plot(fun1(x, 0.5, 0.5))\naxes[0].set_title(\"fun1 (E-field y-component)\")\naxes[0].set_xlabel(\"x\")\naxes[0].set_ylabel(\"Value\")\n\n# Plot 2: Add your second plot\naxes[1].plot(fun2(x, 0.5, 0.5))\naxes[1].set_title(\"fun2 (E-field z-component)\")\naxes[1].set_xlabel(\"x\")\naxes[1].set_ylabel(\"Value\")\n\nplt.tight_layout()"
+    "section": "Poisson tutorial (written by copilot)",
+    "text": "Poisson tutorial (written by copilot)\n\nSolving 1D Poisson with periodic boundary conditions in Struphy\nThis tutorial shows how to solve a manufactured 1D Poisson problem with the Poisson model.\nWe use a periodic domain \\(x \\in [0, L)\\) and choose an analytic solution\n\\[\n\\phi_\\mathrm{exact}(x) = \\cos(kx),\n\\]\nso the source for the stabilized Poisson problem\n\\[\n-\\phi'' + \\varepsilon\\phi = \\rho\n\\]\nis\n\\[\n\\rho(x) = (k^2 + \\varepsilon)\\cos(kx).\n\\]\nThen we run a Struphy Simulation, compare numerical and exact solutions, and compute the max-norm error."
   },
   {
-    "objectID": "index.html#create-a-new-simulation-object",
-    "href": "index.html#create-a-new-simulation-object",
+    "objectID": "index.html#section",
+    "href": "index.html#section",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Create a new simulation object",
-    "text": "Create a new simulation object\nThe following simulation will inherit all the initial conditions and parameters from sim, except for the ones we explicitly override.\n\nsim2 = Simulation(\n    model=model,\n    time_opts=time_opts,\n    grid=grid,\n    derham_opts=derham_opts,\n    verbose=True,\n)"
+    "section": "",
+    "text": "import numpy as np\nimport matplotlib.pyplot as plt\n\nfrom struphy import Simulation, DerhamOptions, domains, grids, perturbations\nfrom struphy.initial.base import GenericPerturbation\nfrom struphy.models import Poisson\n\n\n\nPoisson.pde()\n\n\nPDEs solved by model:\n\n        Find φ ∈ H¹ such that\n\n        -∇ · D₀(𝐱) ∇ φ + n₀(𝐱) φ = ρ(t, 𝐱)\n        where n₀, ρ(t) : Ω → ℝ are real-valued functions, ρ(t) is\n        parametrized by time t, and D₀ : Ω → ℝ3 × 3 is a positive matrix.\n        Boundary terms from integration by parts are assumed to vanish."
   },
   {
-    "objectID": "index.html#you-can-compare-sim-objects",
-    "href": "index.html#you-can-compare-sim-objects",
+    "objectID": "index.html#section-1",
+    "href": "index.html#section-1",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "You can compare sim objects",
-    "text": "You can compare sim objects\n\nsim == sim2\n\nFalse\n\n\n\nWe can serialze sims through dicts:\n\nsim3 = Simulation.from_dict(sim.to_dict())\n\nsim == sim3\n\nTrue\n\n\n\n\nThis is the same as\n\nsim4 = sim.spawn_sister()\n\nsim == sim4\n\nTrue\n\n\n\n\nOnly in devel so far - not yet in main:\n\nsim.export(\"sim.yaml\")\nsim5 = Simulation.from_file(\"sim.yaml\")\nassert sim == sim5"
+    "section": "",
+    "text": "# Manufactured periodic test case in 1D (aligned with verification test pattern)\nLx = 2.0 * np.pi\nmode = 2\nk = mode * 2.0 * np.pi / Lx\n\n# Tiny stabilization makes the periodic problem uniquely solvable\nstab_eps = 1e-8\n\n# Build the source through the model variable as in test_verif_Poisson.py\nmodel = Poisson()\n\noptions = model.propagators.poisson.Options(\n    rho=model.em_fields.source,\n    stab_eps=stab_eps,\n    )\nmodel.propagators.poisson.options = options\n\nsource_amp = k**2 + stab_eps\nmodel.em_fields.source.add_perturbation(\n    perturbations.ModesCos(ls=(mode,), amps=(source_amp,))\n    )\n\nphi_exact = lambda e1, e2, e3: np.cos(k * e1)\n\n\nPoisson.Options controls the elliptic solve. In this example we only set:\n\nrho: the manufactured source term.\nstab_eps: a tiny stabilization to remove the constant null-space in the periodic case.\n\nAll other option fields are left at their defaults (solver choice, preconditioner, tolerances, etc.)."
   },
   {
-    "objectID": "index.html#run-and-post-process",
-    "href": "index.html#run-and-post-process",
+    "objectID": "index.html#section-2",
+    "href": "index.html#section-2",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Run and post process",
-    "text": "Run and post process\nRun:\n\nsim2.run()\n\n\nUse the pproc method for flexibility in post-processing and visualization:\n\nsim2.pproc()"
+    "section": "",
+    "text": "# 1D periodic setup: periodic bcs are the default (None in each direction)\ndomain = domains.Cuboid(l1=0.0, r1=Lx)\ngrid = grids.TensorProductGrid(num_elements=(64, 1, 1))\nderham_opts = DerhamOptions()\n\nsim = Simulation(\n    model=model,\n    domain=domain,\n    grid=grid,\n    derham_opts=derham_opts,\n    )\n\n\n\n# For a stationary Poisson solve, one time step is enough\nset_logging_level(logging.WARNING)\nsim.run(one_time_step=True)\nsim.pproc()\nset_logging_level(logging.INFO)\nsim.load_plotting_data()\n\n\nStarting simulation run for model Poisson ...\nStruphy run finished.\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 753.56it/s]\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 1437.14it/s]\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 1722.86it/s]\n\nLoading post-processed plotting data:\nData path: /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing\n\nFiles in /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing/fields_data/em_fields: ['phi_log.bin', 'source_log.bin']\n\nThe following data has been loaded:\n\ngrids:\nself.t_grid.shape =(2,)\nself.grids_log[0].shape =(65,)\nself.grids_log[1].shape =(2,)\nself.grids_log[2].shape =(2,)\nself.grids_phy[0].shape =(65, 2, 2)\nself.grids_phy[1].shape =(65, 2, 2)\nself.grids_phy[2].shape =(65, 2, 2)\n\nself.spline_values:\n    em_fields\n        phi_log\n        source_log\n\nself.orbits:\n\nself.f:\n\nself.n_sph:"
   },
   {
-    "objectID": "index.html#load-plotting-data",
-    "href": "index.html#load-plotting-data",
+    "objectID": "index.html#section-3",
+    "href": "index.html#section-3",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Load plotting data",
-    "text": "Load plotting data\n\nsim2.load_plotting_data()"
+    "section": "",
+    "text": "# Extract 1D line data and compare to analytic solution\nx = sim.grids_phy[0][:, 0, 0]\n\nt_last = max(sim.spline_values.em_fields.phi_log.data.keys())\nphi_num = sim.spline_values.em_fields.phi_log.data[t_last][0][:, 0, 0]\nphi_ref = phi_exact(x, 0.0, 0.0)\n\nerr = phi_num - phi_ref\nerr_max = np.max(np.abs(err))\n\n\n\n\nmax-norm error ||phi_h - phi_exact||_inf = 3.207e-03\nmax-norm error ||E_h - E_exact||_inf = 1.920e-02"
   },
   {
-    "objectID": "index.html#inspect-data-types",
-    "href": "index.html#inspect-data-types",
+    "objectID": "index.html#poisson-tutorial-contd.",
+    "href": "index.html#poisson-tutorial-contd.",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Inspect data types",
-    "text": "Inspect data types\n\ne_field = sim2.spline_values.em_fields.e_field_log\nprint(e_field)\n\ntype(self.data) = &lt;class 'dict'&gt;\nlen(self.data) = 4\nkey = np.float64(0.0)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]\nkey = np.float64(0.1)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]\nkey = np.float64(0.2)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]\nkey = np.float64(0.3)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]"
+    "section": "Poisson tutorial (contd.)",
+    "text": "Poisson tutorial (contd.)\n2D Manufactured Test on a Rectangle\nWe now solve a 2D manufactured Poisson problem on a rectangle with different side lengths:\n\\[\n(x,y) \\in [0,L_x] \\times [0,L_y], \\qquad L_x \\neq L_y.\n\\]\nChoose\n\\[\n\\phi_\\mathrm{exact}(x,y) = \\sin\\left(\\frac{2\\pi x}{L_x}\\right)\\sin\\left(\\frac{2\\pi y}{L_y}\\right),\n\\]\nwhich satisfies homogeneous Dirichlet conditions on all rectangle boundaries. For\n\\[\n-\\Delta\\phi + \\varepsilon\\phi = \\rho,\n\\]\nthe manufactured source is\n\\[\n\\rho(x,y) = \\left[\\left(\\frac{2\\pi}{L_x}\\right)^2 + \\left(\\frac{2\\pi}{L_y}\\right)^2 + \\varepsilon\\right] \\phi_\\mathrm{exact}(x,y).\n\\]\nTo stay consistent with Struphy’s source handling, we build this source through a model perturbation."
   },
   {
-    "objectID": "index.html#plot-snapshots",
-    "href": "index.html#plot-snapshots",
+    "objectID": "index.html#section-4",
+    "href": "index.html#section-4",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Plot snapshots",
-    "text": "Plot snapshots\n\nfig, axes = plt.subplots(4, 3, figsize=(15, 12))\n\nfor n, (time, data) in enumerate(e_field.data.items()):\n    \n  # Plot 1: First component in x-direction\n  axes[n, 0].plot(data[0][:, 0, 0])\n  axes[n, 0].set_title(f\"E_1 (x-direction) at time {time}\")\n  axes[n, 0].set_xlabel(\"x\")\n  axes[n, 0].set_ylabel(\"Value\")\n  axes[n, 0].set_ylim(-1.5e-1, 1.5e-1)  # Set y-limits for better comparison across time steps\n\n  # Plot 2: Add your second plot\n  axes[n, 1].plot(data[1][:, 0, 0])\n  axes[n, 1].set_title(f\"E_2 (x-direction) at time {time} \")\n  axes[n, 1].set_xlabel(\"x\")\n  axes[n, 1].set_ylabel(\"Value\")\n  axes[n, 1].set_ylim(-1.5e-1, 1.5e-1)  # Set y-limits for better comparison across time steps\n  # Plot 3: Add your third plot\n  axes[n, 2].plot(data[2][:, 0, 0])\n  axes[n, 2].set_title(f\"E_3 (x-direction) at time {time}\")\n  axes[n, 2].set_xlabel(\"x\")\n  axes[n, 2].set_ylabel(\"Value\")\n  axes[n, 2].set_ylim(-1.5e-1, 1.5e-1)\n\nplt.tight_layout()"
+    "section": "",
+    "text": "# 2D manufactured Poisson setup and solve\nLx2 = 2.0\nLy2 = 1.0\neps2 = 1e-8\n\nkx2 = 2.0 * np.pi / Lx2\nky2 = 2.0 * np.pi / Ly2\n\nphi2_exact = lambda e1, e2, e3: np.sin(kx2 * e1) * np.sin(ky2 * e2)\n\nmodel2 = Poisson()\nmodel2.propagators.poisson.options = model2.propagators.poisson.Options(\n    rho=model2.em_fields.source,\n    stab_eps=eps2,\n    )\n\nsource_amp2 = kx2**2 + ky2**2 + eps2\nmodel2.em_fields.source.add_perturbation(\n    perturbations.ModesSinSin(ls=(1,), ms=(1,), amps=(source_amp2,))\n    )\n\ndomain2 = domains.Cuboid(l1=0.0, r1=Lx2, l2=0.0, r2=Ly2)\ngrid2 = grids.TensorProductGrid(num_elements=(48, 32, 1))\nderham_opts2 = DerhamOptions(\n    degree=(3, 3, 1),\n    bcs=((\"dirichlet\", \"dirichlet\"), (\"dirichlet\", \"dirichlet\"), None),\n    )\n\nsim2 = Simulation(\n    model=model2,\n    domain=domain2,\n    grid=grid2,\n    derham_opts=derham_opts2,\n    )"
   },
   {
-    "objectID": "index.html#default-launch-files-from-cli",
-    "href": "index.html#default-launch-files-from-cli",
+    "objectID": "index.html#section-5",
+    "href": "index.html#section-5",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Default launch files from CLI",
-    "text": "Default launch files from CLI\nstruphy params MODEL\nThis will create a file params_MODEL.py in the current working directory.\n\nTo run the model type\npython params_MODEL.py\n\n\nFor parallel runs, use\nmpirun -n N python params_MODEL.py\nor copy the command to a job script for your cluster’s scheduler (e.g., SLURM, PBS)."
+    "section": "",
+    "text": "set_logging_level(logging.WARNING)\nsim2.run(one_time_step=True)\nsim2.pproc()\nsim2.load_plotting_data()\n\n\nStarting simulation run for model Poisson ...\nStruphy run finished.\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 534.78it/s]\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 305.13it/s]\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 206.84it/s]\n\n\n\n\n# 2D diagnostics and plots\nt2_last = max(sim2.spline_values.em_fields.phi_log.data.keys())\nX = sim2.grids_phy[0][:, :, 0]\nY = sim2.grids_phy[1][:, :, 0]\n\nphi2_num = sim2.spline_values.em_fields.phi_log.data[t2_last][0][:, :, 0]\nphi2_ref = phi2_exact(X, Y, 0.0)\nerr2 = phi2_num - phi2_ref\nerr2_max = np.max(np.abs(err2))\n\n\n\n\n\n2D max-norm error ||phi_h - phi_exact||_inf = 1.589e-07"
   },
   {
-    "objectID": "index.html#example-vlasov-ampère-model",
-    "href": "index.html#example-vlasov-ampère-model",
+    "objectID": "index.html#poisson-tutorial-contd.-1",
+    "href": "index.html#poisson-tutorial-contd.-1",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Example: Vlasov-Ampère model",
-    "text": "Example: Vlasov-Ampère model\n\nfrom struphy.models import VlasovAmpereOneSpecies\nVlasovAmpereOneSpecies.info()\n\nVlasov-Ampère system for a single kinetic species in an electric field.\n\n\nTo see detailed information on the model, run the following methods:\n\nVlasovAmpereOneSpecies.pde()\nVlasovAmpereOneSpecies.normalization()\nVlasovAmpereOneSpecies.scalar_quantities()\nVlasovAmpereOneSpecies.discretization()\nVlasovAmpereOneSpecies.long_description()\nVlasovAmpereOneSpecies.examples()\nVlasovAmpereOneSpecies.use_cases()\nVlasovAmpereOneSpecies.cannot_be_used_for()"
+    "section": "Poisson tutorial (contd.)",
+    "text": "Poisson tutorial (contd.)\n2D Manufactured Test on a Thin Annulus (HollowCylinder)\nAs a second 2D geometry test, we solve Poisson on a disc-shaped domain with a small hole, i.e. a thin annulus.\nWe use the physical manufactured solution\n\\[\n\\phi_\\mathrm{exact}(r,\\theta)=\\sin\\!\\left(\\pi\\frac{r-a_1}{a_2-a_1}\\right)\\sin(m\\theta),\n\\]\nwith \\(r=\\sqrt{x^2+y^2}\\) and \\(\\theta=\\mathrm{atan2}(y,x)\\). This vanishes at \\(r=a_1\\) and \\(r=a_2\\), so we impose homogeneous Dirichlet conditions in the radial direction.\nFor\n\\[\n-\\Delta\\phi + \\varepsilon\\phi = \\rho,\n\\]\nthe source \\(\\rho\\) is computed analytically in polar coordinates and injected as a physical-space perturbation.\nBelow, all plots are shown in physical coordinates \\((x,y)\\) only."
   },
   {
-    "objectID": "index.html#launch-file-api",
-    "href": "index.html#launch-file-api",
+    "objectID": "index.html#section-6",
+    "href": "index.html#section-6",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Launch file API",
-    "text": "Launch file API\nstruphy params VlasovAmpereOneSpecies\ncat params_VlasovAmpereOneSpecies.py \nOr inspect in your favorite code editor, for live inspection and editing:"
+    "section": "",
+    "text": "# HollowCylinder manufactured annulus test (physical-space definition)\na1 = 0.8\na2 = 1.0\nLz3 = 1.0\nm3 = 3\neps3 = 1e-8\nw3 = a2 - a1\nalpha3 = np.pi / w3\n\ndef phi3_exact(x, y, z):\n    r = np.sqrt(x**2 + y**2)\n    theta = np.arctan2(y, x)\n    s = alpha3 * (r - a1)\n    return np.sin(s) * np.sin(m3 * theta)\n\ndef rho3_exact(x, y, z):\n    r = np.sqrt(x**2 + y**2)\n    theta = np.arctan2(y, x)\n    s = alpha3 * (r - a1)\n\n    sin_s = np.sin(s)\n    cos_s = np.cos(s)\n    sin_mt = np.sin(m3 * theta)\n\n    # -Delta(phi) + eps*phi for phi(r,theta)=sin(s)sin(m theta)\n    term = (alpha3**2) * sin_s - (alpha3 / r) * cos_s + (m3**2 / r**2) * sin_s + eps3 * sin_s\n    return term * sin_mt\n\nmodel3 = Poisson()\nmodel3.propagators.poisson.options = model3.propagators.poisson.Options(\n    rho=model3.em_fields.source,\n    stab_eps=eps3,\n    )\n\nmodel3.em_fields.source.add_perturbation(\n    GenericPerturbation(rho3_exact, given_in_basis=\"physical\")\n    )\n\ndomain3 = domains.HollowCylinder(a1=a1, a2=a2, Lz=Lz3)\ngrid3 = grids.TensorProductGrid(num_elements=(36, 96, 1))\nderham_opts3 = DerhamOptions(\n    degree=(3, 3, 1),\n    bcs=((\"dirichlet\", \"dirichlet\"), None, None),\n    )\n\nsim3 = Simulation(\n    model=model3,\n    domain=domain3,\n    grid=grid3,\n    derham_opts=derham_opts3,\n    )\n\nsim3.run(one_time_step=True)\nsim3.pproc()\nsim3.load_plotting_data()\n\n\nStarting simulation run for model Poisson ...\nStruphy run finished.\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 1006.43it/s]\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 115.67it/s]\n  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 78.55it/s]"
   },
   {
-    "objectID": "index.html#example-linearmhd",
-    "href": "index.html#example-linearmhd",
+    "objectID": "index.html#section-7",
+    "href": "index.html#section-7",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Example: LinearMHD",
-    "text": "Example: LinearMHD\n\nfrom struphy.models import LinearMHD\nLinearMHD.info()\n\nfrom struphy import domains, equils\n\nLinear ideal MHD with zero-flow equilibrium for magnetohydrodynamic wave propagation.\n\n\nTo see detailed information on the model, run the following methods:\n\nLinearMHD.pde()\nLinearMHD.normalization()\nLinearMHD.scalar_quantities()\nLinearMHD.discretization()\nLinearMHD.long_description()\nLinearMHD.examples()\nLinearMHD.use_cases()\nLinearMHD.cannot_be_used_for()"
+    "section": "",
+    "text": "# Annulus diagnostics and plots in physical coordinates only\nt3_last = max(sim3.spline_values.em_fields.phi_log.data.keys())\nX3 = sim3.grids_phy[0][:, :, 0]\nY3 = sim3.grids_phy[1][:, :, 0]\n\nphi3_num = sim3.spline_values.em_fields.phi_log.data[t3_last][0][:, :, 0]\nphi3_ref = phi3_exact(X3, Y3, 0.0)\nerr3 = phi3_num - phi3_ref\nerr3_max = np.max(np.abs(err3))\n\n\n\nAnnulus max-norm error ||phi_h - phi_exact||_inf = 1.101e-05"
   },
   {
-    "objectID": "index.html#example-linearmhd-ctd.",
-    "href": "index.html#example-linearmhd-ctd.",
+    "objectID": "index.html#vlasov",
+    "href": "index.html#vlasov",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Example: LinearMHD (ctd.)",
-    "text": "Example: LinearMHD (ctd.)\n\nmodel = LinearMHD()\ndomain = domains.DESCunit()\nequil = equils.DESCequilibrium(use_nfp=False)\n\nsim = Simulation(\n    model=model,\n    domain=domain,\n    equil=equil,\n)\n\nsim.show_domain(scalars=\"absB0\", window_size = (850, 250), zoom_factor=2.0)"
+    "section": "Vlasov",
+    "text": "Vlasov\n\nfrom struphy.models import Vlasov\n\nVlasov.pde()\n\n\nPDEs solved by model:\n\n        Vlasov equation:\n\n        ∂f∂t + 𝐯 · ∇ f + ( 𝐯 × 𝐁₀ ) · ∂f∂𝐯 = 0\n\n\n\n\nVlasov.discretization()\n\n\n\n\n\n\nDiscretization (Propagators called in sequence):\n\n1. propagators_markers.PushVxB:\n\nFor each marker p, solves\n\n    d 𝐯ₚ(t)d t =  1ε   𝐯ₚ(t) × (𝐁 + 𝐁add)  ,\n    where ε = 1/(Ω̂c t̂) is a constant scaling factor, and for rotation vector 𝐁 and optional, additional fixed rotation vector 𝐁add, both given as a 2-form:\n\n    𝐁 =  DF  B̂²√g .\n    Available algorithms:\n\n\n\n    analytic\n    implicit.\n\n\n\n\n2. propagators_markers.PushEta:\n\nFor each marker p, solves\n\n    d 𝐱ₚ(t)d t = 𝐯ₚ ,\n    for constant 𝐯ₚ in logical space given by 𝐱 = F(η):\n\n    d ηₚ(t)d t = DF⁻¹(ηₚ(t))  𝐯ₚ .\n    Available algorithms:\n\n\n\n    Explicit RK from struphy.ode.utils.ButcherTableau"
   },
   {
-    "objectID": "index.html#example-files",
-    "href": "index.html#example-files",
+    "objectID": "index.html#vlasov-ampere",
+    "href": "index.html#vlasov-ampere",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Example files",
-    "text": "Example files\nVisit the repo for example parameter files:\n\n🌐 Repo: github.com/struphy-hub/struphy-parameter-files\n\nEasy to launch and post-process examples:\ncd VlasovAmpereOneSpecies\ncd two_stream\npython params_two_stream.py\npython pproc_two_stream.py"
+    "section": "Vlasov-Ampere",
+    "text": "Vlasov-Ampere\n\nfrom struphy.models import VlasovAmpereOneSpecies\n\nVlasovAmpereOneSpecies.pde()\n\n\n\n\nPDEs solved by model:\n\n        Vlasov equation:\n\n        ∂f∂t + 𝐯 · ∇ f + 1ε ( 𝐄 + 𝐯 × 𝐁₀ ) · ∂f∂𝐯 = 0\n        Ampère's law:\n\n        -∂𝐄∂t = α²ε ∫ℝ³ 𝐯 f   d³ 𝐯\n        Initial Poisson equation: At t=0, solve weakly for the electric potential φ:\n\n        \n\n\n\n∫Ω ∇ ψ→p · ∇ φ   d 𝐱\n=α²ε ∫Ω ∫ℝ³ ψ   (f - f₀)   d³ 𝐯   d 𝐱    ∀ ψ ∈ H¹\n\n\n𝐄(t=0)\n=-∇ φ(t=0)\n\n\n\n\n\n\n\n\n\nVlasovAmpereOneSpecies.discretization()\n\n\n\n\n\nDiscretization (Propagators called in sequence):\nTime integration is performed by the following propagators (in sequence):\n\n\n1. propagators_markers.PushEta:\n\nFor each marker p, solves\n\n    d 𝐱ₚ(t)d t = 𝐯ₚ ,\n    for constant 𝐯ₚ in logical space given by 𝐱 = F(η):\n\n    d ηₚ(t)d t = DF⁻¹(ηₚ(t))  𝐯ₚ .\n    Available algorithms:\n\n\n\n    Explicit RK from struphy.ode.utils.ButcherTableau\n\n\n\n\n2. propagators_markers.PushVxB:\n\nFor each marker p, solves\n\n    d 𝐯ₚ(t)d t =  1ε   𝐯ₚ(t) × (𝐁 + 𝐁add)  ,\n    where ε = 1/(Ω̂c t̂) is a constant scaling factor, and for rotation vector 𝐁 and optional, additional fixed rotation vector 𝐁add, both given as a 2-form:\n\n    𝐁 =  DF  B̂²√g .\n    Available algorithms:\n\n\n\n    analytic\n    implicit.\n\n\n\n\n3. propagators_coupling.VlasovAmpere:\n\nPIC-FEEC discretization of the following equations:\n    find 𝐄 ∈ H(curl) and f such that\n\n\n    \n\n\n\n-∫Ω ∂𝐄∂t · 𝐅 d 𝐱\n=α²ε ∫Ω ∫ℝ³ f 𝐯 · 𝐅   d³ 𝐯  d 𝐱    ∀   𝐅 ∈ H(curl)\n\n\n∂f∂t + 1ε  𝐄 · ∂f∂𝐯\n=0 .\n\n\n\n\n    Time discretization: Crank-Nicolson (implicit mid-point).\n\n    System size reduction via struphy.linear_algebra.schur_solver.SchurSolver."
   },
   {
-    "objectID": "index.html#benchmarks",
-    "href": "index.html#benchmarks",
+    "objectID": "index.html#vlasov-maxwell",
+    "href": "index.html#vlasov-maxwell",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Benchmarks",
-    "text": "Benchmarks\nIn the making …\n\nCurrent work focuses on benchmarking against other HPC plasma codes such as GEMPICX, GENE, ORB5, and JOREK, as well as against analytical solutions for linear instabilities and nonlinear dynamics."
+    "section": "Vlasov-Maxwell",
+    "text": "Vlasov-Maxwell\n\n\nfrom struphy.models import VlasovMaxwellOneSpecies\n\nVlasovMaxwellOneSpecies.pde()\n\n\n\n\n\nPDEs solved by model:\n\n        Vlasov equation:\n\n        ∂f∂t + 𝐯 · ∇ f + 1ε ( 𝐄 + 𝐯 × ( 𝐁 + 𝐁₀ ) ) · ∂f∂𝐯 = 0\n        Ampère's law:\n\n        -∂𝐄∂t + ∇ × 𝐁 = α²ε ∫ℝ³ 𝐯 f   d³ 𝐯\n        Faraday's law:\n\n        ∂𝐁∂t + ∇ × 𝐄 = 0\n        where Z=-1 and A=1/1836 for electrons.\n\n        At initial time the weak Poisson equation is solved once to weakly satisfy Gauss' law,\n\n        \n\n\n\n∫Ω ∇ ψ→p · ∇ φ   d 𝐱\n=α²ε ∫Ω ∫ℝ³ ψ   (f - f₀)   d³ 𝐯   d 𝐱    ∀ ψ ∈ H¹\n\n\n𝐄(t=0)\n=-∇ φ(t=0)\n\n\n\n\n        Moreover, it is assumed that\n\n        ∇ × 𝐁₀ = α²ε ∫ℝ³ 𝐯 f₀   d³ 𝐯\n        where 𝐁₀ is the static equilibrium magnetic field.\n\n\n\n\n\nVlasovMaxwellOneSpecies.discretization()\n\n\n\n\n\nDiscretization (Propagators called in sequence):\n\n1. propagators_fields.Maxwell:\n\nFEEC discretization of the following equations:\n    find 𝐄 ∈ H(curl) and  𝐁 ∈ H(div) such that\n\n\n    \n\n\n\n∫Ω ∂𝐄∂t · 𝐅   d 𝐱 - ∫Ω 𝐁 · ∇ × 𝐅  d 𝐱\n=0 ,    ∀   𝐅 ∈ H(curl)\n\n\n∂𝐁∂t + ∇×𝐄\n=0 .\n\n\n\n\n    Time discretization:\n\n\n\n    implicit: Crank-Nicolson (implicit mid-point)\n    explicit: explicit RK methods from ButcherTableau\n\n\n    System size reduction via struphy.linear_algebra.schur_solver.SchurSolver.\n\n\n\n2. propagators_markers.PushEta:\n\nFor each marker p, solves\n\n    d 𝐱ₚ(t)d t = 𝐯ₚ ,\n    for constant 𝐯ₚ in logical space given by 𝐱 = F(η):\n\n    d ηₚ(t)d t = DF⁻¹(ηₚ(t))  𝐯ₚ .\n    Available algorithms:\n\n\n\n    Explicit RK from struphy.ode.utils.ButcherTableau\n\n\n\n\n3. propagators_markers.PushVxB:\n\nFor each marker p, solves\n\n    d 𝐯ₚ(t)d t =  1ε   𝐯ₚ(t) × (𝐁 + 𝐁add)  ,\n    where ε = 1/(Ω̂c t̂) is a constant scaling factor, and for rotation vector 𝐁 and optional, additional fixed rotation vector 𝐁add, both given as a 2-form:\n\n    𝐁 =  DF  B̂²√g .\n    Available algorithms:\n\n\n\n    analytic\n    implicit.\n\n\n\n\n4. propagators_coupling.VlasovAmpere:\n\nPIC-FEEC discretization of the following equations:\n    find 𝐄 ∈ H(curl) and f such that\n\n\n    \n\n\n\n-∫Ω ∂𝐄∂t · 𝐅 d 𝐱\n=α²ε ∫Ω ∫ℝ³ f 𝐯 · 𝐅   d³ 𝐯  d 𝐱    ∀   𝐅 ∈ H(curl)\n\n\n∂f∂t + 1ε  𝐄 · ∂f∂𝐯\n=0 .\n\n\n\n\n    Time discretization: Crank-Nicolson (implicit mid-point).\n\n    System size reduction via struphy.linear_algebra.schur_solver.SchurSolver."
   },
   {
-    "objectID": "index.html#plasma-hpc-framework-in-python",
-    "href": "index.html#plasma-hpc-framework-in-python",
+    "objectID": "index.html#takeaways-by-copilot",
+    "href": "index.html#takeaways-by-copilot",
     "title": "Struphy 3.1  Structure-Preserving  Hybrid Code",
-    "section": "Plasma HPC framework in Python",
-    "text": "Plasma HPC framework in Python\n\nStruphy 3.0: A structure-preserving hybrid code for plasma simulations in Python.\nCombines particle and grid methods with high-performance kernels (Pyccel).\nEasy-to-use API for setting up and running complex plasma simulations.\nYou can integrate your model into the API.\nOpen-source and community-driven development - get in touch!\nQR code to the slides below - Thank you!"
+    "section": "Takeaways (by copilot)",
+    "text": "Takeaways (by copilot)\n\nStruphy is designed to make advanced plasma simulation methods composable, performant, and reusable.\n\n\n\nFlexibility by design: particle methods, FEEC-based field discretizations, SPH ideas, multiple geometries, and different model ingredients can live in one common framework.\n\n\n\n\nA Lego system for models: equations, propagators, couplings, grids, domains, and post-processing tools can be combined and recombined instead of reimplemented for every new code.\n\n\n\n\nPerformance where it matters: high-level Python interfaces are paired with compiled kernels via Pyccel and parallel data structures built for MPI/OpenMP workflows.\n\n\n\n\nReusable research software: once a method is implemented in Struphy, it becomes easier to test, extend, benchmark, preserve, and share across projects and generations of users.\n\n\n\n\nGoal: turn specialized plasma codes into a sustainable ecosystem of interoperable building blocks."
   }
 ]

@@ -261,12 +261,9 @@ n(t, x) = \sum_k w_k\, W(x - x_k(t))\,,\qquad \mathbf u(t, x) = \sum_k \frac{w_k
 \]</span></p>
 </div>
 <div class="fragment">
-<p>Struphy provides MPI/OpenMP data structures for these methods (GPU via <code>cuda-python</code> in the second half of 2026 - ACH project Max Lindqvist)</p>
+<p>Struphy provides MPI/OpenMP data structures for these methods (GPU via <code>cuda-python</code> in the second half of 2026 - ACH project 6 months).</p>
 </div>
 <div class="fragment">
-<p><span class="math display">\[
-\phantom{}
-\]</span></p>
 <p>Under consideration: <strong>Hermite polynomials for velocity discretization</strong> (C. Negulescu)</p>
 </div>
 </section>
@@ -296,6 +293,16 @@ n(t, x) = \sum_k w_k\, W(x - x_k(t))\,,\qquad \mathbf u(t, x) = \sum_k \frac{w_k
 <li>Enable computational plasma research for a wider audience, including students and researchers that are not experts in programming.</li>
 </ul>
 </div>
+</section>
+<section id="current-team" class="slide level2">
+<h2>Current team</h2>
+<ul>
+<li><p><strong>Amin Raissi</strong> (PhD student with Omar Maj): SPH discretization of viscous Euler equations</p></li>
+<li><p><strong>Lorenzo Mazzi</strong> (Master student with Omar Maj): high frequency decomposition in Euler-Maxwell equations</p></li>
+<li><p><strong>Emile Grivet</strong> (4 month intership from Paris-Saclay): Benchmarking ITG turbulence with drift-kinetic equations in Struphy</p></li>
+<li><p><strong>David Székedi</strong> (internship from TU delft, remote): saddle point problem for quasi-neutral two-fluid equations</p></li>
+<li><p><strong>Max Lindqvist</strong> (ACH): Maintainer</p></li>
+</ul>
 </section>
 <section>
 <section id="getting-the-code" class="title-slide slide level1 center">
@@ -334,9 +341,9 @@ n(t, x) = \sum_k w_k\, W(x - x_k(t))\,,\qquad \mathbf u(t, x) = \sum_k \frac{w_k
 </div>
 <div class="fragment">
 <ul>
-<li>From PyPI (with physics packages):</li>
+<li>From PyPI (with physics packages and MPI support):</li>
 </ul>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a></a>pip install -U struphy[phys]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb2"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb2-1"><a></a>pip install -U struphy[phys,mpi]</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
 <div class="fragment">
 <ul>
@@ -367,7 +374,8 @@ n(t, x) = \sum_k w_k\, W(x - x_k(t))\,,\qquad \mathbf u(t, x) = \sum_k \frac{w_k
 <li>List the existing environments and activate one:</li>
 </ul>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb6"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb6-1"><a></a>ls struphy_*</span>
-<span id="cb6-2"><a></a>source struphy_fortran_/env_fortran_/bin/activate</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<span id="cb6-2"><a></a>source struphy_fortran_/env_fortran_/bin/activate</span>
+<span id="cb6-3"><a></a>struphy -v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <ul>
 <li>Check the compilation:</li>
 </ul>
@@ -384,7 +392,28 @@ n(t, x) = \sum_k w_k\, W(x - x_k(t))\,,\qquad \mathbf u(t, x) = \sum_k \frac{w_k
 </div><div class="column" style="width:50%;">
 <p><img data-src="tutorials.png"></p>
 </div></div>
-<p>We will run through the first few tutorials together, but feel free to explore the rest on your own time!</p>
+</div>
+</section>
+<section id="run-examples" class="slide level2">
+<h2>Run examples</h2>
+<p>Visit the repo for example parameter files:</p>
+<div style="text-align: left; margin-top: 1em; margin-bottom: 1em">
+<p><a href="https://github.com/struphy-hub/struphy-parameter-files" style="text-align: left"><span class="emoji" data-emoji="globe_with_meridians">🌐</span> Repo: github.com/struphy-hub/struphy-parameter-files</a></p>
+</div>
+<p>Easy to launch and post-process examples:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb8"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb8-1"><a></a>cd VlasovAmpereOneSpecies</span>
+<span id="cb8-2"><a></a>cd two_stream</span>
+<span id="cb8-3"><a></a>python params_two_stream.py</span>
+<span id="cb8-4"><a></a>python pproc_two_stream.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div style="text-align: center; margin-top: 1em">
+<div class="columns">
+<div class="column" style="width:33%;">
+<p><img data-src="fig_0000.png"></p>
+</div><div class="column" style="width:33%;">
+<p><img data-src="fig_0220.png"></p>
+</div><div class="column" style="width:33%;">
+<p><img data-src="fig_0500.png"></p>
+</div></div>
 </div>
 </section></section>
 <section>
@@ -392,60 +421,62 @@ n(t, x) = \sum_k w_k\, W(x - x_k(t))\,,\qquad \mathbf u(t, x) = \sum_k \frac{w_k
 <h1>Getting started</h1>
 
 </section>
-<section id="models-pdes" class="slide level2">
-<h2>Models (PDEs)</h2>
-<div id="a081499d" class="cell" data-execution_count="1">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a></a><span class="im">from</span> struphy <span class="im">import</span> models</span>
-<span id="cb8-2"><a></a>models.<span class="va">__all__</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="1">
-<pre><code>['ColdPlasma',
- 'ColdPlasmaVlasov',
- 'DeterministicParticleDiffusion',
- 'DriftKineticElectrostaticAdiabatic',
- 'GuidingCenter',
- 'HasegawaWakatani',
- 'LinearExtendedMHDuniform',
- 'LinearMHD',
- 'LinearMHDDriftkineticCC',
- 'LinearMHDVlasovCC',
- 'LinearMHDVlasovPC',
- 'LinearVlasovAmpereOneSpecies',
- 'LinearVlasovMaxwellOneSpecies',
- 'Maxwell',
- 'Poisson',
- 'PressureLessSPH',
- 'RandomParticleDiffusion',
- 'ShearAlfven',
- 'ToyDrift',
- 'TwoFluidQuasiNeutralToy',
- 'VariationalBarotropicFluid',
- 'VariationalCompressibleFluid',
- 'VariationalPressurelessFluid',
- 'ViscoResistiveDeltafMHD',
- 'ViscoResistiveDeltafMHD_with_q',
- 'ViscoResistiveLinearMHD',
- 'ViscoResistiveLinearMHD_with_q',
- 'ViscoResistiveMHD',
- 'ViscoResistiveMHD_with_p',
- 'ViscoResistiveMHD_with_q',
- 'ViscousEulerSPH',
- 'ViscousFluid',
- 'Vlasov',
- 'VlasovAmpereOneSpecies',
- 'VlasovMaxwellOneSpecies']</code></pre>
+<section id="check-version-in-cli" class="slide level2">
+<h2>Check version in CLI</h2>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb9-1"><a></a>struphy -v</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="fragment">
+<div id="3b918f41" class="cell" data-execution_count="1">
+<div class="cell-output cell-output-stdout">
+<pre><code>Struphy 3.1.0
+Copyright 2019-2026 (c) Struphy dev team | Max Planck Institute for Plasma Physics
+MIT license</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Get more info in CLI:</p>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb11"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb11-1"><a></a>struphy --help</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div id="ea652dda" class="cell" data-execution_count="2">
+<div class="cell-output cell-output-stdout">
+<pre><code>usage: struphy [-h] [-v] [-s] [--fluid] [--kinetic] [--hybrid] COMMAND ...
+
+Struphy: STRUcture-Preserving HYbrid code for plasma physics.
+
+options:
+  -h, --help        show this help message and exit
+  -v, --version     show program's version number and exit
+  -s, --short-help  display short help
+  --fluid           display available fluid models
+  --kinetic         display available kinetic models
+  --hybrid          display available hybrid models
+
+available commands:
+  compile           compile computational kernels (including psydac)
+  params            create default parameter file for a model, or show model's options
+  profile           profile finished runs
+  test              run tests
+  format            format source files
+  lint              lint and analyze source files
+
+Type "struphy COMMAND --help" for more information on a command.
+
+For more help on how to use Struphy, see https://struphy-hub.github.io/struphy/</code></pre>
+</div>
 </div>
 </div>
 </section>
-<section id="model-info" class="slide level2 scrollable">
-<h2>Model Info</h2>
-<div id="f4c19221" class="cell" data-execution_count="2">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> Maxwell</span>
-<span id="cb10-2"><a></a>Maxwell.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<section id="import-model" class="slide level2 scrollable">
+<h2>Import model</h2>
+<div id="a6e35450" class="cell" data-execution_count="3">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> Maxwell</span>
+<span id="cb13-2"><a></a></span>
+<span id="cb13-3"><a></a>Maxwell.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<strong>Maxwell's equations in vacuum for electromagnetic field evolution.
 
-
-</strong><p><strong></strong>To see detailed information on the model, run the following methods:</p>
+<h5>Maxwell's equations in vacuum for electromagnetic field evolution.</h5>
+<p>To see detailed information on the model, run the following methods:</p>
 
 <p></p><pre><code>Maxwell.pde()
 Maxwell.normalization()
@@ -457,366 +488,1056 @@ Maxwell.use_cases()
 Maxwell.cannot_be_used_for()</code></pre><p></p>
 </div>
 </div>
-</section>
-<section id="create-a-simulation" class="slide level2">
-<h2>Create a Simulation</h2>
-<div id="4ef8ac29" class="cell" data-execution_count="3">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a></a><span class="im">from</span> struphy <span class="im">import</span> Simulation</span>
-<span id="cb11-2"><a></a></span>
-<span id="cb11-3"><a></a>model <span class="op">=</span> Maxwell()</span>
-<span id="cb11-4"><a></a>sim <span class="op">=</span> Simulation(model<span class="op">=</span>model, verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="run" class="slide level2">
-<h2>Run</h2>
-<div id="ba81584a" class="cell" data-execution_count="4">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a></a>sim.run(verbose<span class="op">=</span><span class="va">True</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="time-grid-and-derham-options" class="slide level2">
-<h2>Time, grid, and Derham options</h2>
-<div id="a9999f82" class="cell" data-execution_count="5">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a></a><span class="im">from</span> struphy <span class="im">import</span> Time, grids, DerhamOptions</span>
-<span id="cb13-2"><a></a></span>
-<span id="cb13-3"><a></a>time_opts <span class="op">=</span> Time(dt<span class="op">=</span><span class="fl">0.1</span>, Tend<span class="op">=</span><span class="fl">0.3</span>)</span>
-<span id="cb13-4"><a></a></span>
-<span id="cb13-5"><a></a>grid <span class="op">=</span> grids.TensorProductGrid(num_elements<span class="op">=</span>(<span class="dv">32</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
-<span id="cb13-6"><a></a></span>
-<span id="cb13-7"><a></a>derham_opts <span class="op">=</span> DerhamOptions(degree<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div style="text-align: center; margin-top: 1em">
-<p>For more info on available options, see the <strong>API guide</strong> in the Struphy docs:</p>
-<div style="text-align: center; margin-top: 1emmargin-bottom: 1em">
-<p><a href="https://struphy-hub.github.io/struphy/index.html" style="text-align: left"><span class="emoji" data-emoji="globe_with_meridians">🌐</span> Docs: struphy-hub.github.io/struphy</a></p>
-</div>
-<p>A good way to explore the options is to use <strong>Pylance</strong> in your code editor (e.g., VSCode) to inspect the available attributes and their docstrings.</p>
-</div>
-</section>
-<section id="new-model-object-with-initial-conditions" class="slide level2 scrollable">
-<h2>New model object with initial conditions</h2>
-<div id="986de4fb" class="cell" data-execution_count="6">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a>model <span class="op">=</span> Maxwell()</span>
-<span id="cb14-2"><a></a><span class="bu">print</span>(model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>Maxwell
-    em_fields:
-        e_field:    FEECVariable (Hcurl)
-        b_field:    FEECVariable (Hdiv)
-</code></pre>
-</div>
-</div>
 <div class="fragment">
-<div id="0baa8d96" class="cell" data-execution_count="7">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a><span class="im">from</span> struphy <span class="im">import</span> perturbations</span>
-<span id="cb16-2"><a></a></span>
-<span id="cb16-3"><a></a>fun1 <span class="op">=</span> perturbations.ModesCos(ls<span class="op">=</span>(<span class="dv">1</span>,), amps<span class="op">=</span>(<span class="fl">1e-1</span>,), comp<span class="op">=</span><span class="dv">1</span>)</span>
-<span id="cb16-4"><a></a>fun2 <span class="op">=</span> perturbations.ModesSin(ls<span class="op">=</span>(<span class="dv">2</span>,), amps<span class="op">=</span>(<span class="fl">1e-2</span>,), comp<span class="op">=</span><span class="dv">2</span>)</span>
-<span id="cb16-5"><a></a></span>
-<span id="cb16-6"><a></a>model.em_fields.e_field.add_perturbation(perturbation<span class="op">=</span>fun1)</span>
-<span id="cb16-7"><a></a>model.em_fields.e_field.add_perturbation(perturbation<span class="op">=</span>fun2)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-<div class="fragment">
-<p>Check what the perturbations look like:</p>
-<div id="3a43ca17" class="cell" data-execution_count="8">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a><span class="im">from</span> matplotlib <span class="im">import</span> pyplot <span class="im">as</span> plt</span>
-<span id="cb17-2"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
-<span id="cb17-3"><a></a></span>
-<span id="cb17-4"><a></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">1</span>, <span class="dv">2</span>, figsize<span class="op">=</span>(<span class="dv">10</span>, <span class="dv">4</span>))</span>
-<span id="cb17-5"><a></a></span>
-<span id="cb17-6"><a></a>x <span class="op">=</span> np.linspace(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">100</span>)</span>
-<span id="cb17-7"><a></a></span>
-<span id="cb17-8"><a></a><span class="co"># Plot 1: First component in x-direction</span></span>
-<span id="cb17-9"><a></a>axes[<span class="dv">0</span>].plot(fun1(x, <span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
-<span id="cb17-10"><a></a>axes[<span class="dv">0</span>].set_title(<span class="st">"fun1 (E-field y-component)"</span>)</span>
-<span id="cb17-11"><a></a>axes[<span class="dv">0</span>].set_xlabel(<span class="st">"x"</span>)</span>
-<span id="cb17-12"><a></a>axes[<span class="dv">0</span>].set_ylabel(<span class="st">"Value"</span>)</span>
-<span id="cb17-13"><a></a></span>
-<span id="cb17-14"><a></a><span class="co"># Plot 2: Add your second plot</span></span>
-<span id="cb17-15"><a></a>axes[<span class="dv">1</span>].plot(fun2(x, <span class="fl">0.5</span>, <span class="fl">0.5</span>))</span>
-<span id="cb17-16"><a></a>axes[<span class="dv">1</span>].set_title(<span class="st">"fun2 (E-field z-component)"</span>)</span>
-<span id="cb17-17"><a></a>axes[<span class="dv">1</span>].set_xlabel(<span class="st">"x"</span>)</span>
-<span id="cb17-18"><a></a>axes[<span class="dv">1</span>].set_ylabel(<span class="st">"Value"</span>)</span>
-<span id="cb17-19"><a></a></span>
-<span id="cb17-20"><a></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="90cb3e13" class="cell" data-execution_count="4">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a></a>Maxwell.pde()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/cell-9-output-1.png" width="950" height="374"></p>
-</figure>
-</div>
-</div>
-</div>
-</div>
-</section>
-<section id="create-a-new-simulation-object" class="slide level2">
-<h2>Create a new simulation object</h2>
-<p>The following simulation will inherit all the initial conditions and parameters from <code>sim</code>, except for the ones we explicitly override.</p>
-<div id="10fbfb11" class="cell" data-execution_count="9">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a>sim2 <span class="op">=</span> Simulation(</span>
-<span id="cb18-2"><a></a>    model<span class="op">=</span>model,</span>
-<span id="cb18-3"><a></a>    time_opts<span class="op">=</span>time_opts,</span>
-<span id="cb18-4"><a></a>    grid<span class="op">=</span>grid,</span>
-<span id="cb18-5"><a></a>    derham_opts<span class="op">=</span>derham_opts,</span>
-<span id="cb18-6"><a></a>    verbose<span class="op">=</span><span class="va">True</span>,</span>
-<span id="cb18-7"><a></a>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="you-can-compare-sim-objects" class="slide level2">
-<h2>You can compare sim objects</h2>
-<div id="b270e8bf" class="cell" data-execution_count="10">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a>sim <span class="op">==</span> sim2</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="10">
-<pre><code>False</code></pre>
-</div>
-</div>
-<div class="fragment">
-<p>We can serialze sims through dicts:</p>
-<div id="3cc23668" class="cell" data-execution_count="11">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a></a>sim3 <span class="op">=</span> Simulation.from_dict(sim.to_dict())</span>
-<span id="cb21-2"><a></a></span>
-<span id="cb21-3"><a></a>sim <span class="op">==</span> sim3</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="11">
-<pre><code>True</code></pre>
+
+<h5>PDEs solved by model:</h5>
+
+<p>        Ampère's law (no current):</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> - ∇ × 𝐁 = 0</span>
+<p>        Faraday's law:</p>
+
+<p>        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐁</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + ∇ × 𝐄 = 0</span></p>
 </div>
 </div>
 </div>
 <div class="fragment">
-<p>This is the same as</p>
-<div id="22108d89" class="cell" data-execution_count="12">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a>sim4 <span class="op">=</span> sim.spawn_sister()</span>
-<span id="cb23-2"><a></a></span>
-<span id="cb23-3"><a></a>sim <span class="op">==</span> sim4</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display" data-execution_count="12">
-<pre><code>True</code></pre>
-</div>
-</div>
-</div>
-<div class="fragment">
-<p>Only in devel so far - not yet in main:</p>
-<div id="398b44bb" class="cell" data-execution_count="13">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>sim.export(<span class="st">"sim.yaml"</span>)</span>
-<span id="cb25-2"><a></a>sim5 <span class="op">=</span> Simulation.from_file(<span class="st">"sim.yaml"</span>)</span>
-<span id="cb25-3"><a></a><span class="cf">assert</span> sim <span class="op">==</span> sim5</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</section>
-<section id="run-and-post-process" class="slide level2">
-<h2>Run and post process</h2>
-<p>Run:</p>
-<div id="0a661c7d" class="cell" data-execution_count="14">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a></a>sim2.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-<div class="fragment">
-<p>Use the <code>pproc</code> method for flexibility in post-processing and visualization:</p>
-<div id="6839e63e" class="cell" data-execution_count="15">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a></a>sim2.pproc()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</div>
-</section>
-<section id="load-plotting-data" class="slide level2">
-<h2>Load plotting data</h2>
-<div id="128fd519" class="cell" data-execution_count="16">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a></a>sim2.load_plotting_data()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-</div>
-</section>
-<section id="inspect-data-types" class="slide level2">
-<h2>Inspect data types</h2>
-<div id="193042ca" class="cell" data-execution_count="17">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a></a>e_field <span class="op">=</span> sim2.spline_values.em_fields.e_field_log</span>
-<span id="cb29-2"><a></a><span class="bu">print</span>(e_field)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>type(self.data) = &lt;class 'dict'&gt;
-len(self.data) = 4
-key = np.float64(0.0)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]
-key = np.float64(0.1)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]
-key = np.float64(0.2)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]
-key = np.float64(0.3)    shape = [(33, 2, 2), (33, 2, 2), (33, 2, 2)]
-</code></pre>
-</div>
-</div>
-</section>
-<section id="plot-snapshots" class="slide level2 scrollable">
-<h2>Plot snapshots</h2>
-<div id="2c20fc1c" class="cell" data-execution_count="18">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a></a>fig, axes <span class="op">=</span> plt.subplots(<span class="dv">4</span>, <span class="dv">3</span>, figsize<span class="op">=</span>(<span class="dv">15</span>, <span class="dv">12</span>))</span>
-<span id="cb31-2"><a></a></span>
-<span id="cb31-3"><a></a><span class="cf">for</span> n, (time, data) <span class="kw">in</span> <span class="bu">enumerate</span>(e_field.data.items()):</span>
-<span id="cb31-4"><a></a>    </span>
-<span id="cb31-5"><a></a>  <span class="co"># Plot 1: First component in x-direction</span></span>
-<span id="cb31-6"><a></a>  axes[n, <span class="dv">0</span>].plot(data[<span class="dv">0</span>][:, <span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb31-7"><a></a>  axes[n, <span class="dv">0</span>].set_title(<span class="ss">f"E_1 (x-direction) at time </span><span class="sc">{</span>time<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb31-8"><a></a>  axes[n, <span class="dv">0</span>].set_xlabel(<span class="st">"x"</span>)</span>
-<span id="cb31-9"><a></a>  axes[n, <span class="dv">0</span>].set_ylabel(<span class="st">"Value"</span>)</span>
-<span id="cb31-10"><a></a>  axes[n, <span class="dv">0</span>].set_ylim(<span class="op">-</span><span class="fl">1.5e-1</span>, <span class="fl">1.5e-1</span>)  <span class="co"># Set y-limits for better comparison across time steps</span></span>
-<span id="cb31-11"><a></a></span>
-<span id="cb31-12"><a></a>  <span class="co"># Plot 2: Add your second plot</span></span>
-<span id="cb31-13"><a></a>  axes[n, <span class="dv">1</span>].plot(data[<span class="dv">1</span>][:, <span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb31-14"><a></a>  axes[n, <span class="dv">1</span>].set_title(<span class="ss">f"E_2 (x-direction) at time </span><span class="sc">{</span>time<span class="sc">}</span><span class="ss"> "</span>)</span>
-<span id="cb31-15"><a></a>  axes[n, <span class="dv">1</span>].set_xlabel(<span class="st">"x"</span>)</span>
-<span id="cb31-16"><a></a>  axes[n, <span class="dv">1</span>].set_ylabel(<span class="st">"Value"</span>)</span>
-<span id="cb31-17"><a></a>  axes[n, <span class="dv">1</span>].set_ylim(<span class="op">-</span><span class="fl">1.5e-1</span>, <span class="fl">1.5e-1</span>)  <span class="co"># Set y-limits for better comparison across time steps</span></span>
-<span id="cb31-18"><a></a>  <span class="co"># Plot 3: Add your third plot</span></span>
-<span id="cb31-19"><a></a>  axes[n, <span class="dv">2</span>].plot(data[<span class="dv">2</span>][:, <span class="dv">0</span>, <span class="dv">0</span>])</span>
-<span id="cb31-20"><a></a>  axes[n, <span class="dv">2</span>].set_title(<span class="ss">f"E_3 (x-direction) at time </span><span class="sc">{</span>time<span class="sc">}</span><span class="ss">"</span>)</span>
-<span id="cb31-21"><a></a>  axes[n, <span class="dv">2</span>].set_xlabel(<span class="st">"x"</span>)</span>
-<span id="cb31-22"><a></a>  axes[n, <span class="dv">2</span>].set_ylabel(<span class="st">"Value"</span>)</span>
-<span id="cb31-23"><a></a>  axes[n, <span class="dv">2</span>].set_ylim(<span class="op">-</span><span class="fl">1.5e-1</span>, <span class="fl">1.5e-1</span>)</span>
-<span id="cb31-24"><a></a></span>
-<span id="cb31-25"><a></a>plt.tight_layout()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="e2a6966e" class="cell" data-execution_count="5">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a></a>Maxwell.normalization()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<div>
-<figure>
-<p><img data-src="index_files/figure-revealjs/cell-19-output-1.png" width="1430" height="1142"></p>
-</figure>
-</div>
-</div>
-</div>
-</section></section>
-<section>
-<section id="launch-files---the-api" class="title-slide slide level1 center">
-<h1>Launch files - the API</h1>
 
-</section>
-<section id="default-launch-files-from-cli" class="slide level2">
-<h2>Default launch files from CLI</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb32"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb32-1"><a></a>struphy params MODEL</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>This will create a file <code>params_MODEL.py</code> in the current working directory.</p>
-<div class="fragment">
-<p>To run the model type</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb33"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb33-1"><a></a>python params_MODEL.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<h5>Normalization:</h5>
+<p>Velocity and fields are normalized as:</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">v̂ = c ,   Ê = c B̂</span>
+<p>        where <code>c</code> is the speed of light.</p>
+</div>
+</div>
 </div>
 <div class="fragment">
-<p>For parallel runs, use</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb34"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb34-1"><a></a>mpirun -n N python params_MODEL.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>or copy the command to a job script for your cluster’s scheduler (e.g., SLURM, PBS).</p>
-</div>
-</section>
-<section id="example-vlasov-ampère-model" class="slide level2 scrollable">
-<h2>Example: Vlasov-Ampère model</h2>
-<div id="66d40f7c" class="cell" data-execution_count="19">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> VlasovAmpereOneSpecies</span>
-<span id="cb35-2"><a></a>VlasovAmpereOneSpecies.info()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div id="2b364502" class="cell" data-execution_count="6">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a></a>Maxwell.scalar_quantities()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 <div class="cell-output cell-output-display">
-<strong>Vlasov-Ampère system for a single kinetic species in an electric field.
+
+<h5>The following scalars are tracked during simulation:</h5>
 
 
-</strong><p><strong></strong>To see detailed information on the model, run the following methods:</p>
-
-<p></p><pre><code>VlasovAmpereOneSpecies.pde()
-VlasovAmpereOneSpecies.normalization()
-VlasovAmpereOneSpecies.scalar_quantities()
-VlasovAmpereOneSpecies.discretization()
-VlasovAmpereOneSpecies.long_description()
-VlasovAmpereOneSpecies.examples()
-VlasovAmpereOneSpecies.use_cases()
-VlasovAmpereOneSpecies.cannot_be_used_for()</code></pre><p></p>
-</div>
-</div>
-</section>
-<section id="launch-file-api" class="slide level2 scrollable">
-<h2>Launch file API</h2>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb36"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb36-1"><a></a>struphy params VlasovAmpereOneSpecies</span>
-<span id="cb36-2"><a></a>cat params_VlasovAmpereOneSpecies.py </span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<p>Or inspect in your favorite code editor, for live inspection and editing:</p>
-</section>
-<section id="example-linearmhd" class="slide level2 scrollable">
-<h2>Example: LinearMHD</h2>
-<div id="691a320c" class="cell" data-execution_count="20">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> LinearMHD</span>
-<span id="cb37-2"><a></a>LinearMHD.info()</span>
-<span id="cb37-3"><a></a></span>
-<span id="cb37-4"><a></a><span class="im">from</span> struphy <span class="im">import</span> domains, equils</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div class="cell-output cell-output-display">
-<strong>Linear ideal MHD with zero-flow equilibrium for magnetohydrodynamic wave propagation.
-
-
-</strong><p><strong></strong>To see detailed information on the model, run the following methods:</p>
-
-<p></p><pre><code>LinearMHD.pde()
-LinearMHD.normalization()
-LinearMHD.scalar_quantities()
-LinearMHD.discretization()
-LinearMHD.long_description()
-LinearMHD.examples()
-LinearMHD.use_cases()
-LinearMHD.cannot_be_used_for()</code></pre><p></p>
-</div>
-</div>
-</section>
-<section id="example-linearmhd-ctd." class="slide level2">
-<h2>Example: LinearMHD (ctd.)</h2>
-<div id="d15567c8" class="cell" data-execution_count="21">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a></a>model <span class="op">=</span> LinearMHD()</span>
-<span id="cb38-2"><a></a>domain <span class="op">=</span> domains.DESCunit()</span>
-<span id="cb38-3"><a></a>equil <span class="op">=</span> equils.DESCequilibrium(use_nfp<span class="op">=</span><span class="va">False</span>)</span>
-<span id="cb38-4"><a></a></span>
-<span id="cb38-5"><a></a>sim <span class="op">=</span> Simulation(</span>
-<span id="cb38-6"><a></a>    model<span class="op">=</span>model,</span>
-<span id="cb38-7"><a></a>    domain<span class="op">=</span>domain,</span>
-<span id="cb38-8"><a></a>    equil<span class="op">=</span>equil,</span>
-<span id="cb38-9"><a></a>)</span>
-<span id="cb38-10"><a></a></span>
-<span id="cb38-11"><a></a>sim.show_domain(scalars<span class="op">=</span><span class="st">"absB0"</span>, window_size <span class="op">=</span> (<span class="dv">850</span>, <span class="dv">250</span>), zoom_factor<span class="op">=</span><span class="fl">2.0</span>)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-
-</div>
-<img data-src="index_files/figure-revealjs/cell-22-output-1.png" class="r-stretch"></section>
-<section id="example-files" class="slide level2">
-<h2>Example files</h2>
-<p>Visit the repo for example parameter files:</p>
-<div style="text-align: left; margin-top: 1em; margin-bottom: 1em">
-<p><a href="https://github.com/struphy-hub/struphy-parameter-files" style="text-align: left"><span class="emoji" data-emoji="globe_with_meridians">🌐</span> Repo: github.com/struphy-hub/struphy-parameter-files</a></p>
-</div>
-<p>Easy to launch and post-process examples:</p>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb39"><pre class="sourceCode numberSource {bash} number-lines code-with-copy"><code class="sourceCode"><span id="cb39-1"><a></a>cd VlasovAmpereOneSpecies</span>
-<span id="cb39-2"><a></a>cd two_stream</span>
-<span id="cb39-3"><a></a>python params_two_stream.py</span>
-<span id="cb39-4"><a></a>python pproc_two_stream.py</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
-<div style="text-align: center; margin-top: 1em">
-<div class="columns">
-<div class="column" style="width:33%;">
-<p><img data-src="fig_0000.png"></p>
-</div><div class="column" style="width:33%;">
-<p><img data-src="fig_0220.png"></p>
-</div><div class="column" style="width:33%;">
-<p><img data-src="fig_0500.png"></p>
-</div></div>
-</div>
-</section>
-<section id="benchmarks" class="slide level2">
-<h2>Benchmarks</h2>
-<p>In the making …</p>
-<div class="fragment">
-<p>Current work focuses on benchmarking against other HPC plasma codes such as GEMPICX, GENE, ORB5, and JOREK, as well as against analytical solutions for linear instabilities and nonlinear dynamics.</p>
-</div>
-</section></section>
-<section>
-<section id="conclusion" class="title-slide slide level1 center">
-<h1>Conclusion</h1>
-
-</section>
-<section id="plasma-hpc-framework-in-python" class="slide level2">
-<h2>Plasma HPC framework in Python</h2>
 <ul>
-<li><strong>Struphy 3.0</strong>: A structure-preserving hybrid code for plasma simulations in Python.</li>
-<li>Combines particle and grid methods with high-performance kernels (Pyccel).</li>
-<li>Easy-to-use API for setting up and running complex plasma simulations.</li>
-<li><strong>You can integrate your model into the API.</strong></li>
-<li>Open-source and community-driven development - get in touch!</li>
-<li>QR code to the slides below - Thank you!</li>
+    <li>Electric energy: <code>E<sub>E</sub> = <sup>1</sup>⁄<sub>2</sub> ∫ |𝐄|²   dV</code></li>
+    <li>Magnetic energy: <code>E<sub>B</sub> = <sup>1</sup>⁄<sub>2</sub> ∫ |𝐁|²   dV</code></li>
+    <li>Total energy: <code>Eₜₒₜₐₗ = E<sub>E</sub> + E<sub>B</sub></code></li>
 </ul>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="22444593" class="cell" data-execution_count="7">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a></a>Maxwell.discretization()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+<h5>Discretization (Propagators called in sequence):</h5>
+
+<h5>1. propagators_fields.Maxwell:</h5>
+
+<p>FEEC discretization of the following equations:
+    find <code>𝐄 ∈ H(curl)</code> and  <code>𝐁 ∈ H(div)</code> such that
+</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">
+<table class="caption-top" style="margin:0 auto;border-collapse:collapse;">
+<tbody>
+<tr class="odd">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap;">∫<sub>Ω</sub> <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> · 𝐅   d 𝐱 - ∫<sub>Ω</sub> 𝐁 · ∇ × 𝐅  d 𝐱</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap;">=0 ,    ∀   𝐅 ∈ H(curl)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap; padding-top: 2mm;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐁</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + ∇×𝐄</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">=0 .</td>
+</tr>
+</tbody>
+</table>
+</span>
+<p>    Time discretization:</p>
+
+
+<ul>
+    <li>implicit: Crank-Nicolson (implicit mid-point)</li>
+    <li>explicit: explicit RK methods from ButcherTableau</li>
+</ul>
+
+<p>    System size reduction via <code>struphy.linear_algebra.schur_solver.SchurSolver</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="run-a-simulation" class="slide level2 scrollable">
+<h2>Run a Simulation</h2>
+<div id="250a4716" class="cell" data-execution_count="8">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb18" data-code-line-numbers="|3|4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a></a><span class="im">from</span> struphy <span class="im">import</span> Simulation</span>
+<span id="cb18-2"><a></a></span>
+<span id="cb18-3"><a></a>model <span class="op">=</span> Maxwell()</span>
+<span id="cb18-4"><a></a>sim <span class="op">=</span> Simulation(model<span class="op">=</span>model)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p>Run the simulation:</p>
+<div id="9656639c" class="cell" data-execution_count="9">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a></a>sim.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Starting simulation run for model Maxwell ...
+Struphy run finished.</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Post-process the simulation:</p>
+<div id="a7394188" class="cell" data-execution_count="10">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a></a>sim.pproc()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 252.55it/s]
+  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 472.88it/s]
+  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 881.39it/s]</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Load plotting data</p>
+<div id="609b9345" class="cell" data-execution_count="11">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a></a>sim.load_plotting_data()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+</section>
+<section id="run-more-verbosely" class="slide level2 scrollable">
+<h2>Run more verbosely</h2>
+<div id="6d685baf" class="cell" data-execution_count="12">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb24" data-code-line-numbers="|1-2|4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a></a><span class="im">from</span> struphy <span class="im">import</span> set_logging_level</span>
+<span id="cb24-2"><a></a><span class="im">import</span> logging</span>
+<span id="cb24-3"><a></a></span>
+<span id="cb24-4"><a></a>set_logging_level(logging.INFO)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div id="b9875542" class="cell" data-execution_count="13">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb25" data-code-line-numbers="|1|2"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a></a>sim <span class="op">=</span> Simulation(model<span class="op">=</span>model)</span>
+<span id="cb25-2"><a></a>sim.run()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Starting simulation run for model Maxwell ...
+
+PROPAGATOR OPTIONS:
+
+Options for propagator 'Maxwell':
+    algo:               implicit
+    solver:             pcg
+    precond:            MassMatrixPreconditioner
+    solver_params:      SolverParameters(tol=1e-08, maxiter=3000, info=False, verbose=False, recycle=True)
+    butcher:            None
+
+INITIAL CONDITIONS:
+
+Variable 'e_field' of species 'EMFields' - no background.
+
+Variable 'e_field' of species 'EMFields' - no perturbation.
+
+Variable 'b_field' of species 'EMFields' - no background.
+
+Variable 'b_field' of species 'EMFields' - no perturbation.
+
+Allocating simulation data ...
+
+WARNING: Class "BasisProjectionOperators" called with degree=(1, 1, 1) (interpolation of piece-wise constants should be avoided).
+
+Allocated SplineFuntion 'e_field' in space 'Hcurl'.
+
+Allocated SplineFuntion 'b_field' in space 'Hdiv'.
+
+Rank 0: executing run() for model Maxwell ...
+
+INITIAL SCALAR QUANTITIES:
+electric_energy:                          0.00e+00
+magnetic_energy:                          0.00e+00
+total_energy:                             0.00e+00
+
+
+START TIME STEPPING WITH 'LieTrotter' SPLITTING:
+time step:                                     1/3
+normalized time:               1.00e-02 / 3.00e-02
+physical time [s]:             3.34e-11 / 1.00e-10
+wall clock time [s]:                        0.2221
+last step duration [s]:                     0.0098
+electric_energy:                          0.00e+00
+magnetic_energy:                          0.00e+00
+total_energy:                             0.00e+00
+
+time step:                                     2/3
+normalized time:               2.00e-02 / 3.00e-02
+physical time [s]:             6.67e-11 / 1.00e-10
+wall clock time [s]:                        0.2467
+last step duration [s]:                     0.0102
+electric_energy:                          0.00e+00
+magnetic_energy:                          0.00e+00
+total_energy:                             0.00e+00
+
+time step:                                     3/3
+normalized time:               3.00e-02 / 3.00e-02
+physical time [s]:             1.00e-10 / 1.00e-10
+wall clock time [s]:                        0.2637
+last step duration [s]:                     0.0092
+electric_energy:                          0.00e+00
+magnetic_energy:                          0.00e+00
+total_energy:                             0.00e+00
+
+
+Time steps done: 3
+wall-clock time of simulation [sec]: 0.27837443351745605
+
+Struphy run finished.</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Post-process the simulation:</p>
+<div id="f4cfd526" class="cell" data-execution_count="14">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a></a>sim.pproc()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Post-processing path /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1
+
+Reading hdf5 data of following species:
+em_fields:
+  b_field: &lt;HDF5 group "/feec/em_fields/b_field" (3 members)&gt;
+  e_field: &lt;HDF5 group "/feec/em_fields/e_field" (3 members)&gt;
+
+Allocated SplineFuntion 'b_field' in space 'Hdiv'.
+
+Allocated SplineFuntion 'e_field' in space 'Hcurl'.
+
+Allocated SplineFuntion 'b_field' in space 'Hdiv'.
+
+Allocated SplineFuntion 'e_field' in space 'Hcurl'.
+
+Allocated SplineFuntion 'b_field' in space 'Hdiv'.
+
+Allocated SplineFuntion 'e_field' in space 'Hcurl'.
+
+Allocated SplineFuntion 'b_field' in space 'Hdiv'.
+
+Allocated SplineFuntion 'e_field' in space 'Hcurl'.
+
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 257.67it/s]
+Creation of Struphy Fields done.
+
+Evaluating fields ...
+  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 419.24it/s]
+
+Creating vtk in /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing/fields_data ...
+  0%|          | 0/4 [00:00&lt;?, ?it/s]100%|██████████| 4/4 [00:00&lt;00:00, 610.30it/s]
+
+No kinetic data found in hdf5 file, skipping post-processing of kinetic data.</code></pre>
+</div>
+</div>
+</div>
+<div class="fragment">
+<p>Load plotting data</p>
+<div id="59e54a04" class="cell" data-execution_count="15">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a></a>sim.load_plotting_data()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Loading post-processed plotting data:
+Data path: /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing
+
+Files in /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing/fields_data/em_fields: ['e_field_log.bin', 'b_field_log.bin']
+
+The following data has been loaded:
+
+grids:
+self.t_grid.shape =(4,)
+self.grids_log[0].shape =(25,)
+self.grids_log[1].shape =(11,)
+self.grids_log[2].shape =(2,)
+self.grids_phy[0].shape =(25, 11, 2)
+self.grids_phy[1].shape =(25, 11, 2)
+self.grids_phy[2].shape =(25, 11, 2)
+
+self.spline_values:
+    em_fields
+        e_field_log
+        b_field_log
+
+self.orbits:
+
+self.f:
+
+self.n_sph:
+</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="poisson-tutorial-written-by-copilot" class="slide level2 scrollable">
+<h2>Poisson tutorial (written by copilot)</h2>
+<div class="fragment">
+<p><strong>Solving 1D Poisson with periodic boundary conditions in Struphy</strong></p>
+<p>This tutorial shows how to solve a manufactured 1D Poisson problem with the <code>Poisson</code> model.</p>
+<p>We use a periodic domain <span class="math inline">\(x \in [0, L)\)</span> and choose an analytic solution</p>
+<p><span class="math display">\[
+\phi_\mathrm{exact}(x) = \cos(kx),
+\]</span></p>
+<p>so the source for the stabilized Poisson problem</p>
+<p><span class="math display">\[
+-\phi'' + \varepsilon\phi = \rho
+\]</span></p>
+<p>is</p>
+<p><span class="math display">\[
+\rho(x) = (k^2 + \varepsilon)\cos(kx).
+\]</span></p>
+<p>Then we run a Struphy <code>Simulation</code>, compare numerical and exact solutions, and compute the max-norm error.</p>
+</div>
+</section>
+<section id="section" class="slide level2 scrollable">
+<h2></h2>
+<div id="dd6ea36f" class="cell" data-execution_count="16">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb31" data-code-line-numbers="|4|5|6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb31-2"><a></a><span class="im">import</span> matplotlib.pyplot <span class="im">as</span> plt</span>
+<span id="cb31-3"><a></a></span>
+<span id="cb31-4"><a></a><span class="im">from</span> struphy <span class="im">import</span> Simulation, DerhamOptions, domains, grids, perturbations</span>
+<span id="cb31-5"><a></a><span class="im">from</span> struphy.initial.base <span class="im">import</span> GenericPerturbation</span>
+<span id="cb31-6"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> Poisson</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div id="d7c9ad8c" class="cell" data-execution_count="17">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a></a>Poisson.pde()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+
+<h5>PDEs solved by model:</h5>
+
+<p>        Find <code>φ ∈ H¹</code> such that</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">-∇ · D₀(𝐱) ∇ φ + n₀(𝐱) φ = ρ(t, 𝐱)</span>
+<p>        where <code>n₀, ρ(t) : Ω → ℝ</code> are real-valued functions, <code>ρ(t)</code> is</p>
+<p>        parametrized by time <code>t</code>, and <code>D₀ : Ω → ℝ<sup>3 × 3</sup></code> is a positive matrix.</p>
+<p>        Boundary terms from integration by parts are assumed to vanish.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="section-1" class="slide level2 scrollable">
+<h2></h2>
+<div id="604ac267" class="cell" data-execution_count="18">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb33" data-code-line-numbers="2-4|7|10|12-15|16|18-22|24"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a></a><span class="co"># Manufactured periodic test case in 1D (aligned with verification test pattern)</span></span>
+<span id="cb33-2"><a></a>Lx <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi</span>
+<span id="cb33-3"><a></a>mode <span class="op">=</span> <span class="dv">2</span></span>
+<span id="cb33-4"><a></a>k <span class="op">=</span> mode <span class="op">*</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">/</span> Lx</span>
+<span id="cb33-5"><a></a></span>
+<span id="cb33-6"><a></a><span class="co"># Tiny stabilization makes the periodic problem uniquely solvable</span></span>
+<span id="cb33-7"><a></a>stab_eps <span class="op">=</span> <span class="fl">1e-8</span></span>
+<span id="cb33-8"><a></a></span>
+<span id="cb33-9"><a></a><span class="co"># Build the source through the model variable as in test_verif_Poisson.py</span></span>
+<span id="cb33-10"><a></a>model <span class="op">=</span> Poisson()</span>
+<span id="cb33-11"><a></a></span>
+<span id="cb33-12"><a></a>options <span class="op">=</span> model.propagators.poisson.Options(</span>
+<span id="cb33-13"><a></a>    rho<span class="op">=</span>model.em_fields.source,</span>
+<span id="cb33-14"><a></a>    stab_eps<span class="op">=</span>stab_eps,</span>
+<span id="cb33-15"><a></a>    )</span>
+<span id="cb33-16"><a></a>model.propagators.poisson.options <span class="op">=</span> options</span>
+<span id="cb33-17"><a></a></span>
+<span id="cb33-18"><a></a>source_amp <span class="op">=</span> k<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> stab_eps</span>
+<span id="cb33-19"><a></a>model.em_fields.source.add_perturbation(</span>
+<span id="cb33-20"><a></a>    perturbations.ModesCos(ls<span class="op">=</span>(mode,), amps<span class="op">=</span>(source_amp,))</span>
+<span id="cb33-21"><a></a>    )</span>
+<span id="cb33-22"><a></a></span>
+<span id="cb33-23"><a></a>phi_exact <span class="op">=</span> <span class="kw">lambda</span> e1, e2, e3: np.cos(k <span class="op">*</span> e1)</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<p><code>Poisson.Options</code> controls the elliptic solve. In this example we only set:</p>
+<ul>
+<li><code>rho</code>: the manufactured source term.</li>
+<li><code>stab_eps</code>: a tiny stabilization to remove the constant null-space in the periodic case.</li>
+</ul>
+<p>All other option fields are left at their defaults (solver choice, preconditioner, tolerances, etc.).</p>
+</div>
+</section>
+<section id="section-2" class="slide level2 scrollable">
+<h2></h2>
+<div id="08cc0ab7" class="cell" data-execution_count="19">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb34" data-code-line-numbers="2-4|6-11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a></a><span class="co"># 1D periodic setup: periodic bcs are the default (None in each direction)</span></span>
+<span id="cb34-2"><a></a>domain <span class="op">=</span> domains.Cuboid(l1<span class="op">=</span><span class="fl">0.0</span>, r1<span class="op">=</span>Lx)</span>
+<span id="cb34-3"><a></a>grid <span class="op">=</span> grids.TensorProductGrid(num_elements<span class="op">=</span>(<span class="dv">64</span>, <span class="dv">1</span>, <span class="dv">1</span>))</span>
+<span id="cb34-4"><a></a>derham_opts <span class="op">=</span> DerhamOptions()</span>
+<span id="cb34-5"><a></a></span>
+<span id="cb34-6"><a></a>sim <span class="op">=</span> Simulation(</span>
+<span id="cb34-7"><a></a>    model<span class="op">=</span>model,</span>
+<span id="cb34-8"><a></a>    domain<span class="op">=</span>domain,</span>
+<span id="cb34-9"><a></a>    grid<span class="op">=</span>grid,</span>
+<span id="cb34-10"><a></a>    derham_opts<span class="op">=</span>derham_opts,</span>
+<span id="cb34-11"><a></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div id="0c9b3e65" class="cell" data-execution_count="20">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a></a><span class="co"># For a stationary Poisson solve, one time step is enough</span></span>
+<span id="cb35-2"><a></a>set_logging_level(logging.WARNING)</span>
+<span id="cb35-3"><a></a>sim.run(one_time_step<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb35-4"><a></a>sim.pproc()</span>
+<span id="cb35-5"><a></a>set_logging_level(logging.INFO)</span>
+<span id="cb35-6"><a></a>sim.load_plotting_data()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Starting simulation run for model Poisson ...
+Struphy run finished.
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 753.56it/s]
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 1437.14it/s]
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 1722.86it/s]
+
+Loading post-processed plotting data:
+Data path: /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing
+
+Files in /home/IPP-AD/spossann/git_repos/2026_NMPP_retreat/sim_1/post_processing/fields_data/em_fields: ['phi_log.bin', 'source_log.bin']
+
+The following data has been loaded:
+
+grids:
+self.t_grid.shape =(2,)
+self.grids_log[0].shape =(65,)
+self.grids_log[1].shape =(2,)
+self.grids_log[2].shape =(2,)
+self.grids_phy[0].shape =(65, 2, 2)
+self.grids_phy[1].shape =(65, 2, 2)
+self.grids_phy[2].shape =(65, 2, 2)
+
+self.spline_values:
+    em_fields
+        phi_log
+        source_log
+
+self.orbits:
+
+self.f:
+
+self.n_sph:
+</code></pre>
+</div>
+</div>
+</div>
+</section>
+<section id="section-3" class="slide level2 scrollable">
+<h2></h2>
+<div id="f08c6613" class="cell" data-execution_count="21">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb37" data-code-line-numbers="2|4-5|6|8-9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a></a><span class="co"># Extract 1D line data and compare to analytic solution</span></span>
+<span id="cb37-2"><a></a>x <span class="op">=</span> sim.grids_phy[<span class="dv">0</span>][:, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb37-3"><a></a></span>
+<span id="cb37-4"><a></a>t_last <span class="op">=</span> <span class="bu">max</span>(sim.spline_values.em_fields.phi_log.data.keys())</span>
+<span id="cb37-5"><a></a>phi_num <span class="op">=</span> sim.spline_values.em_fields.phi_log.data[t_last][<span class="dv">0</span>][:, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb37-6"><a></a>phi_ref <span class="op">=</span> phi_exact(x, <span class="fl">0.0</span>, <span class="fl">0.0</span>)</span>
+<span id="cb37-7"><a></a></span>
+<span id="cb37-8"><a></a>err <span class="op">=</span> phi_num <span class="op">-</span> phi_ref</span>
+<span id="cb37-9"><a></a>err_max <span class="op">=</span> np.<span class="bu">max</span>(np.<span class="bu">abs</span>(err))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div id="d7e7aebf" class="cell" data-execution_count="22">
+<div class="cell-output cell-output-stdout">
+<pre><code>max-norm error ||phi_h - phi_exact||_inf = 3.207e-03
+max-norm error ||E_h - E_exact||_inf = 1.920e-02</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-23-output-2.png" width="852" height="374"></p>
+</figure>
+</div>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-23-output-3.png" width="852" height="374"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="poisson-tutorial-contd." class="slide level2 scrollable">
+<h2>Poisson tutorial (contd.)</h2>
+<p><strong>2D Manufactured Test on a Rectangle</strong></p>
+<p>We now solve a 2D manufactured Poisson problem on a rectangle with different side lengths:</p>
+<p><span class="math display">\[
+(x,y) \in [0,L_x] \times [0,L_y], \qquad L_x \neq L_y.
+\]</span></p>
+<p>Choose</p>
+<p><span class="math display">\[
+\phi_\mathrm{exact}(x,y) = \sin\left(\frac{2\pi x}{L_x}\right)\sin\left(\frac{2\pi y}{L_y}\right),
+\]</span></p>
+<p>which satisfies homogeneous Dirichlet conditions on all rectangle boundaries. For</p>
+<p><span class="math display">\[
+-\Delta\phi + \varepsilon\phi = \rho,
+\]</span></p>
+<p>the manufactured source is</p>
+<p><span class="math display">\[
+\rho(x,y) = \left[\left(\frac{2\pi}{L_x}\right)^2 + \left(\frac{2\pi}{L_y}\right)^2 + \varepsilon\right] \phi_\mathrm{exact}(x,y).
+\]</span></p>
+<p>To stay consistent with Struphy’s source handling, we build this source through a model perturbation.</p>
+</section>
+<section id="section-4" class="slide level2 scrollable">
+<h2></h2>
+<div id="da3b443d" class="cell" data-execution_count="23">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb39" data-code-line-numbers="2-7|9|11-15|18-20|22|23|24-27|29-34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a></a><span class="co"># 2D manufactured Poisson setup and solve</span></span>
+<span id="cb39-2"><a></a>Lx2 <span class="op">=</span> <span class="fl">2.0</span></span>
+<span id="cb39-3"><a></a>Ly2 <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb39-4"><a></a>eps2 <span class="op">=</span> <span class="fl">1e-8</span></span>
+<span id="cb39-5"><a></a></span>
+<span id="cb39-6"><a></a>kx2 <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">/</span> Lx2</span>
+<span id="cb39-7"><a></a>ky2 <span class="op">=</span> <span class="fl">2.0</span> <span class="op">*</span> np.pi <span class="op">/</span> Ly2</span>
+<span id="cb39-8"><a></a></span>
+<span id="cb39-9"><a></a>phi2_exact <span class="op">=</span> <span class="kw">lambda</span> e1, e2, e3: np.sin(kx2 <span class="op">*</span> e1) <span class="op">*</span> np.sin(ky2 <span class="op">*</span> e2)</span>
+<span id="cb39-10"><a></a></span>
+<span id="cb39-11"><a></a>model2 <span class="op">=</span> Poisson()</span>
+<span id="cb39-12"><a></a>model2.propagators.poisson.options <span class="op">=</span> model2.propagators.poisson.Options(</span>
+<span id="cb39-13"><a></a>    rho<span class="op">=</span>model2.em_fields.source,</span>
+<span id="cb39-14"><a></a>    stab_eps<span class="op">=</span>eps2,</span>
+<span id="cb39-15"><a></a>    )</span>
+<span id="cb39-16"><a></a></span>
+<span id="cb39-17"><a></a>source_amp2 <span class="op">=</span> kx2<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> ky2<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> eps2</span>
+<span id="cb39-18"><a></a>model2.em_fields.source.add_perturbation(</span>
+<span id="cb39-19"><a></a>    perturbations.ModesSinSin(ls<span class="op">=</span>(<span class="dv">1</span>,), ms<span class="op">=</span>(<span class="dv">1</span>,), amps<span class="op">=</span>(source_amp2,))</span>
+<span id="cb39-20"><a></a>    )</span>
+<span id="cb39-21"><a></a></span>
+<span id="cb39-22"><a></a>domain2 <span class="op">=</span> domains.Cuboid(l1<span class="op">=</span><span class="fl">0.0</span>, r1<span class="op">=</span>Lx2, l2<span class="op">=</span><span class="fl">0.0</span>, r2<span class="op">=</span>Ly2)</span>
+<span id="cb39-23"><a></a>grid2 <span class="op">=</span> grids.TensorProductGrid(num_elements<span class="op">=</span>(<span class="dv">48</span>, <span class="dv">32</span>, <span class="dv">1</span>))</span>
+<span id="cb39-24"><a></a>derham_opts2 <span class="op">=</span> DerhamOptions(</span>
+<span id="cb39-25"><a></a>    degree<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb39-26"><a></a>    bcs<span class="op">=</span>((<span class="st">"dirichlet"</span>, <span class="st">"dirichlet"</span>), (<span class="st">"dirichlet"</span>, <span class="st">"dirichlet"</span>), <span class="va">None</span>),</span>
+<span id="cb39-27"><a></a>    )</span>
+<span id="cb39-28"><a></a></span>
+<span id="cb39-29"><a></a>sim2 <span class="op">=</span> Simulation(</span>
+<span id="cb39-30"><a></a>    model<span class="op">=</span>model2,</span>
+<span id="cb39-31"><a></a>    domain<span class="op">=</span>domain2,</span>
+<span id="cb39-32"><a></a>    grid<span class="op">=</span>grid2,</span>
+<span id="cb39-33"><a></a>    derham_opts<span class="op">=</span>derham_opts2,</span>
+<span id="cb39-34"><a></a>    )</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</section>
+<section id="section-5" class="slide level2 scrollable">
+<h2></h2>
+<div id="d19d8ec8" class="cell" data-execution_count="24">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb40"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb40-1"><a></a>set_logging_level(logging.WARNING)</span>
+<span id="cb40-2"><a></a>sim2.run(one_time_step<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb40-3"><a></a>sim2.pproc()</span>
+<span id="cb40-4"><a></a>sim2.load_plotting_data()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Starting simulation run for model Poisson ...
+Struphy run finished.
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 534.78it/s]
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 305.13it/s]
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 206.84it/s]</code></pre>
+</div>
+</div>
+<div class="fragment">
+<div id="3d748ee3" class="cell" data-execution_count="25">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a></a><span class="co"># 2D diagnostics and plots</span></span>
+<span id="cb42-2"><a></a>t2_last <span class="op">=</span> <span class="bu">max</span>(sim2.spline_values.em_fields.phi_log.data.keys())</span>
+<span id="cb42-3"><a></a>X <span class="op">=</span> sim2.grids_phy[<span class="dv">0</span>][:, :, <span class="dv">0</span>]</span>
+<span id="cb42-4"><a></a>Y <span class="op">=</span> sim2.grids_phy[<span class="dv">1</span>][:, :, <span class="dv">0</span>]</span>
+<span id="cb42-5"><a></a></span>
+<span id="cb42-6"><a></a>phi2_num <span class="op">=</span> sim2.spline_values.em_fields.phi_log.data[t2_last][<span class="dv">0</span>][:, :, <span class="dv">0</span>]</span>
+<span id="cb42-7"><a></a>phi2_ref <span class="op">=</span> phi2_exact(X, Y, <span class="fl">0.0</span>)</span>
+<span id="cb42-8"><a></a>err2 <span class="op">=</span> phi2_num <span class="op">-</span> phi2_ref</span>
+<span id="cb42-9"><a></a>err2_max <span class="op">=</span> np.<span class="bu">max</span>(np.<span class="bu">abs</span>(err2))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div id="e5448427" class="cell" data-execution_count="26">
+<div class="cell-output cell-output-stdout">
+<pre><code>2D max-norm error ||phi_h - phi_exact||_inf = 1.589e-07</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-27-output-2.png" width="1450" height="443"></p>
+</figure>
+</div>
+</div>
+</div>
+</div>
+</section>
+<section id="poisson-tutorial-contd.-1" class="slide level2 scrollable">
+<h2>Poisson tutorial (contd.)</h2>
+<p><strong>2D Manufactured Test on a Thin Annulus (HollowCylinder)</strong></p>
+<p>As a second 2D geometry test, we solve Poisson on a disc-shaped domain with a small hole, i.e.&nbsp;a thin annulus.</p>
+<p>We use the physical manufactured solution</p>
+<p><span class="math display">\[
+\phi_\mathrm{exact}(r,\theta)=\sin\!\left(\pi\frac{r-a_1}{a_2-a_1}\right)\sin(m\theta),
+\]</span></p>
+<p>with <span class="math inline">\(r=\sqrt{x^2+y^2}\)</span> and <span class="math inline">\(\theta=\mathrm{atan2}(y,x)\)</span>. This vanishes at <span class="math inline">\(r=a_1\)</span> and <span class="math inline">\(r=a_2\)</span>, so we impose homogeneous Dirichlet conditions in the radial direction.</p>
+<p>For</p>
+<p><span class="math display">\[
+-\Delta\phi + \varepsilon\phi = \rho,
+\]</span></p>
+<p>the source <span class="math inline">\(\rho\)</span> is computed analytically in polar coordinates and injected as a physical-space perturbation.</p>
+<p>Below, all plots are shown in physical coordinates <span class="math inline">\((x,y)\)</span> only.</p>
+</section>
+<section id="section-6" class="slide level2 scrollable">
+<h2></h2>
+<div id="5aaebeb9" class="cell" data-execution_count="27">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb44" data-code-line-numbers="2-8|10-14|16-27|29-33|35-37|39|40|41-44|46-51|53-55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a></a><span class="co"># HollowCylinder manufactured annulus test (physical-space definition)</span></span>
+<span id="cb44-2"><a></a>a1 <span class="op">=</span> <span class="fl">0.8</span></span>
+<span id="cb44-3"><a></a>a2 <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb44-4"><a></a>Lz3 <span class="op">=</span> <span class="fl">1.0</span></span>
+<span id="cb44-5"><a></a>m3 <span class="op">=</span> <span class="dv">3</span></span>
+<span id="cb44-6"><a></a>eps3 <span class="op">=</span> <span class="fl">1e-8</span></span>
+<span id="cb44-7"><a></a>w3 <span class="op">=</span> a2 <span class="op">-</span> a1</span>
+<span id="cb44-8"><a></a>alpha3 <span class="op">=</span> np.pi <span class="op">/</span> w3</span>
+<span id="cb44-9"><a></a></span>
+<span id="cb44-10"><a></a><span class="kw">def</span> phi3_exact(x, y, z):</span>
+<span id="cb44-11"><a></a>    r <span class="op">=</span> np.sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb44-12"><a></a>    theta <span class="op">=</span> np.arctan2(y, x)</span>
+<span id="cb44-13"><a></a>    s <span class="op">=</span> alpha3 <span class="op">*</span> (r <span class="op">-</span> a1)</span>
+<span id="cb44-14"><a></a>    <span class="cf">return</span> np.sin(s) <span class="op">*</span> np.sin(m3 <span class="op">*</span> theta)</span>
+<span id="cb44-15"><a></a></span>
+<span id="cb44-16"><a></a><span class="kw">def</span> rho3_exact(x, y, z):</span>
+<span id="cb44-17"><a></a>    r <span class="op">=</span> np.sqrt(x<span class="op">**</span><span class="dv">2</span> <span class="op">+</span> y<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb44-18"><a></a>    theta <span class="op">=</span> np.arctan2(y, x)</span>
+<span id="cb44-19"><a></a>    s <span class="op">=</span> alpha3 <span class="op">*</span> (r <span class="op">-</span> a1)</span>
+<span id="cb44-20"><a></a></span>
+<span id="cb44-21"><a></a>    sin_s <span class="op">=</span> np.sin(s)</span>
+<span id="cb44-22"><a></a>    cos_s <span class="op">=</span> np.cos(s)</span>
+<span id="cb44-23"><a></a>    sin_mt <span class="op">=</span> np.sin(m3 <span class="op">*</span> theta)</span>
+<span id="cb44-24"><a></a></span>
+<span id="cb44-25"><a></a>    <span class="co"># -Delta(phi) + eps*phi for phi(r,theta)=sin(s)sin(m theta)</span></span>
+<span id="cb44-26"><a></a>    term <span class="op">=</span> (alpha3<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> sin_s <span class="op">-</span> (alpha3 <span class="op">/</span> r) <span class="op">*</span> cos_s <span class="op">+</span> (m3<span class="op">**</span><span class="dv">2</span> <span class="op">/</span> r<span class="op">**</span><span class="dv">2</span>) <span class="op">*</span> sin_s <span class="op">+</span> eps3 <span class="op">*</span> sin_s</span>
+<span id="cb44-27"><a></a>    <span class="cf">return</span> term <span class="op">*</span> sin_mt</span>
+<span id="cb44-28"><a></a></span>
+<span id="cb44-29"><a></a>model3 <span class="op">=</span> Poisson()</span>
+<span id="cb44-30"><a></a>model3.propagators.poisson.options <span class="op">=</span> model3.propagators.poisson.Options(</span>
+<span id="cb44-31"><a></a>    rho<span class="op">=</span>model3.em_fields.source,</span>
+<span id="cb44-32"><a></a>    stab_eps<span class="op">=</span>eps3,</span>
+<span id="cb44-33"><a></a>    )</span>
+<span id="cb44-34"><a></a></span>
+<span id="cb44-35"><a></a>model3.em_fields.source.add_perturbation(</span>
+<span id="cb44-36"><a></a>    GenericPerturbation(rho3_exact, given_in_basis<span class="op">=</span><span class="st">"physical"</span>)</span>
+<span id="cb44-37"><a></a>    )</span>
+<span id="cb44-38"><a></a></span>
+<span id="cb44-39"><a></a>domain3 <span class="op">=</span> domains.HollowCylinder(a1<span class="op">=</span>a1, a2<span class="op">=</span>a2, Lz<span class="op">=</span>Lz3)</span>
+<span id="cb44-40"><a></a>grid3 <span class="op">=</span> grids.TensorProductGrid(num_elements<span class="op">=</span>(<span class="dv">36</span>, <span class="dv">96</span>, <span class="dv">1</span>))</span>
+<span id="cb44-41"><a></a>derham_opts3 <span class="op">=</span> DerhamOptions(</span>
+<span id="cb44-42"><a></a>    degree<span class="op">=</span>(<span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">1</span>),</span>
+<span id="cb44-43"><a></a>    bcs<span class="op">=</span>((<span class="st">"dirichlet"</span>, <span class="st">"dirichlet"</span>), <span class="va">None</span>, <span class="va">None</span>),</span>
+<span id="cb44-44"><a></a>    )</span>
+<span id="cb44-45"><a></a></span>
+<span id="cb44-46"><a></a>sim3 <span class="op">=</span> Simulation(</span>
+<span id="cb44-47"><a></a>    model<span class="op">=</span>model3,</span>
+<span id="cb44-48"><a></a>    domain<span class="op">=</span>domain3,</span>
+<span id="cb44-49"><a></a>    grid<span class="op">=</span>grid3,</span>
+<span id="cb44-50"><a></a>    derham_opts<span class="op">=</span>derham_opts3,</span>
+<span id="cb44-51"><a></a>    )</span>
+<span id="cb44-52"><a></a></span>
+<span id="cb44-53"><a></a>sim3.run(one_time_step<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb44-54"><a></a>sim3.pproc()</span>
+<span id="cb44-55"><a></a>sim3.load_plotting_data()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-stderr">
+<pre><code>
+Starting simulation run for model Poisson ...
+Struphy run finished.
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 1006.43it/s]
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 115.67it/s]
+  0%|          | 0/2 [00:00&lt;?, ?it/s]100%|██████████| 2/2 [00:00&lt;00:00, 78.55it/s]</code></pre>
+</div>
+</div>
+</section>
+<section id="section-7" class="slide level2 scrollable">
+<h2></h2>
+<div id="073a2971" class="cell" data-execution_count="28">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb46" data-code-line-numbers="3-4|6-7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb46-1"><a></a><span class="co"># Annulus diagnostics and plots in physical coordinates only</span></span>
+<span id="cb46-2"><a></a>t3_last <span class="op">=</span> <span class="bu">max</span>(sim3.spline_values.em_fields.phi_log.data.keys())</span>
+<span id="cb46-3"><a></a>X3 <span class="op">=</span> sim3.grids_phy[<span class="dv">0</span>][:, :, <span class="dv">0</span>]</span>
+<span id="cb46-4"><a></a>Y3 <span class="op">=</span> sim3.grids_phy[<span class="dv">1</span>][:, :, <span class="dv">0</span>]</span>
+<span id="cb46-5"><a></a></span>
+<span id="cb46-6"><a></a>phi3_num <span class="op">=</span> sim3.spline_values.em_fields.phi_log.data[t3_last][<span class="dv">0</span>][:, :, <span class="dv">0</span>]</span>
+<span id="cb46-7"><a></a>phi3_ref <span class="op">=</span> phi3_exact(X3, Y3, <span class="fl">0.0</span>)</span>
+<span id="cb46-8"><a></a>err3 <span class="op">=</span> phi3_num <span class="op">-</span> phi3_ref</span>
+<span id="cb46-9"><a></a>err3_max <span class="op">=</span> np.<span class="bu">max</span>(np.<span class="bu">abs</span>(err3))</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div id="4f6e1e76" class="cell" data-execution_count="29">
+<div class="cell-output cell-output-stdout">
+<pre><code>Annulus max-norm error ||phi_h - phi_exact||_inf = 1.101e-05</code></pre>
+</div>
+<div class="cell-output cell-output-display">
+<div>
+<figure>
+<p><img data-src="index_files/figure-revealjs/cell-30-output-2.png" width="1450" height="472"></p>
+</figure>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="building-models---the-lego-system" class="title-slide slide level1 center">
+<h1>Building models - the Lego system</h1>
+
+</section>
+<section id="vlasov" class="slide level2 scrollable">
+<h2>Vlasov</h2>
+<div id="33391506" class="cell" data-execution_count="30">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> Vlasov</span>
+<span id="cb48-2"><a></a></span>
+<span id="cb48-3"><a></a>Vlasov.pde()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+<div class="cell-output cell-output-display">
+
+<h5>PDEs solved by model:</h5>
+
+<p>        Vlasov equation:</p>
+
+<p>        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + 𝐯 · ∇ f + ( 𝐯 × 𝐁₀ ) · <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂𝐯</span></span> = 0</span></p>
+</div>
+</div>
+<div class="fragment">
+<div id="25986f9e" class="cell" data-execution_count="31">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a></a>Vlasov.discretization()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div id="91d6ada1" class="cell" data-execution_count="32">
+<div class="cell-output cell-output-display">
+
+<h5>Discretization (Propagators called in sequence):</h5>
+
+<h5>1. propagators_markers.PushVxB:</h5>
+
+<p>For each marker <code>p</code>, solves</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d 𝐯ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> =  <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span>   𝐯ₚ(t) × (𝐁 + 𝐁<sub>add</sub>)  ,</span>
+<p>    where <code>ε = 1/(Ω̂<sub>c</sub> t̂)</code> is a constant scaling factor, and for rotation vector <code>𝐁</code> and optional, additional fixed rotation vector <code>𝐁<sub>add</sub></code>, both given as a 2-form:</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">𝐁 =  <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">DF  <b>B̂</b>²</span><span style="display:block;padding:0 0.18em;">√g</span></span> .</span>
+<p>    Available algorithms:</p>
+
+
+<ul>
+    <li><code>analytic</code></li>
+    <li><code>implicit</code>.</li>
+</ul>
+
+
+
+<h5>2. propagators_markers.PushEta:</h5>
+
+<p>For each marker <code>p</code>, solves</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d 𝐱ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> = 𝐯ₚ ,</span>
+<p>    for constant <code>𝐯ₚ</code> in logical space given by <code>𝐱 = F(<b>η</b>)</code>:</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d <b>η</b>ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> = DF⁻¹(<b>η</b>ₚ(t))  𝐯ₚ .</span>
+<p>    Available algorithms:</p>
+
+
+<ul>
+    <li>Explicit RK from <code>struphy.ode.utils.ButcherTableau</code></li>
+</ul>
+
+</div>
+</div>
+</div>
+</section>
+<section id="vlasov-ampere" class="slide level2 scrollable">
+<h2>Vlasov-Ampere</h2>
+<div id="f65226f2" class="cell" data-execution_count="33">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> VlasovAmpereOneSpecies</span>
+<span id="cb50-2"><a></a></span>
+<span id="cb50-3"><a></a>VlasovAmpereOneSpecies.pde()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+<div class="fragment">
+<div id="1f583c5b" class="cell" data-execution_count="34">
+<div class="cell-output cell-output-display">
+<h5>PDEs solved by model:</h5>
+
+<p>        Vlasov equation:</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + 𝐯 · ∇ f + <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span> ( 𝐄 + 𝐯 × 𝐁₀ ) · <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂𝐯</span></span> = 0</span>
+<p>        Ampère's law:</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">-<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> = <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>ℝ³</sub> 𝐯 f   d³ 𝐯</span>
+<p>        Initial Poisson equation: At <code>t=0</code>, solve weakly for the electric potential <code>φ</code>:</p>
+
+<p>        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">
+</span></p><table class="caption-top" style="margin:0 auto;border-collapse:collapse;">
+<tbody>
+<tr class="odd">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap;">∫<sub>Ω</sub> ∇ ψ<sup>→p</sup> · ∇ φ   d 𝐱</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap;">=<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>Ω</sub> ∫<sub>ℝ³</sub> ψ   (f - f₀)   d³ 𝐯   d 𝐱    ∀ ψ ∈ H¹</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">𝐄(t=0)</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">=-∇ φ(t=0)</td>
+</tr>
+</tbody>
+</table>
+<p></p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="b1f1166f" class="cell" data-execution_count="35">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a></a>VlasovAmpereOneSpecies.discretization()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div id="77580c92" class="cell" data-execution_count="36">
+<div class="cell-output cell-output-display">
+<h5>Discretization (Propagators called in sequence):</h5>
+<p>Time integration is performed by the following propagators (in sequence):</p>
+
+
+<h5>1. propagators_markers.PushEta:</h5>
+
+<p>For each marker <code>p</code>, solves</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d 𝐱ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> = 𝐯ₚ ,</span>
+<p>    for constant <code>𝐯ₚ</code> in logical space given by <code>𝐱 = F(<b>η</b>)</code>:</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d <b>η</b>ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> = DF⁻¹(<b>η</b>ₚ(t))  𝐯ₚ .</span>
+<p>    Available algorithms:</p>
+
+
+<ul>
+    <li>Explicit RK from <code>struphy.ode.utils.ButcherTableau</code></li>
+</ul>
+
+
+
+<h5>2. propagators_markers.PushVxB:</h5>
+
+<p>For each marker <code>p</code>, solves</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d 𝐯ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> =  <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span>   𝐯ₚ(t) × (𝐁 + 𝐁<sub>add</sub>)  ,</span>
+<p>    where <code>ε = 1/(Ω̂<sub>c</sub> t̂)</code> is a constant scaling factor, and for rotation vector <code>𝐁</code> and optional, additional fixed rotation vector <code>𝐁<sub>add</sub></code>, both given as a 2-form:</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">𝐁 =  <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">DF  <b>B̂</b>²</span><span style="display:block;padding:0 0.18em;">√g</span></span> .</span>
+<p>    Available algorithms:</p>
+
+
+<ul>
+    <li><code>analytic</code></li>
+    <li><code>implicit</code>.</li>
+</ul>
+
+
+
+<h5>3. propagators_coupling.VlasovAmpere:</h5>
+
+<p>PIC-FEEC discretization of the following equations:
+    find <code>𝐄 ∈ H(curl)</code> and <code>f</code> such that
+</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">
+<table class="caption-top" style="margin:0 auto;border-collapse:collapse;">
+<tbody>
+<tr class="odd">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap;">-∫<sub>Ω</sub> <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> · 𝐅 d 𝐱</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap;">=<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>Ω</sub> ∫<sub>ℝ³</sub> f 𝐯 · 𝐅   d³ 𝐯  d 𝐱    ∀   𝐅 ∈ H(curl)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap; padding-top: 2mm;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span>  𝐄 · <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂𝐯</span></span></td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">=0 .</td>
+</tr>
+</tbody>
+</table>
+</span>
+<p>    Time discretization: Crank-Nicolson (implicit mid-point).</p>
+
+<p>    System size reduction via <code>struphy.linear_algebra.schur_solver.SchurSolver</code>.</p>
+</div>
+</div>
+</div>
+</section>
+<section id="vlasov-maxwell" class="slide level2 scrollable">
+<h2>Vlasov-Maxwell</h2>
+<div class="fragment">
+<div id="c9eaef8c" class="cell" data-execution_count="37">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a></a><span class="im">from</span> struphy.models <span class="im">import</span> VlasovMaxwellOneSpecies</span>
+<span id="cb52-2"><a></a></span>
+<span id="cb52-3"><a></a>VlasovMaxwellOneSpecies.pde()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div id="43078e77" class="cell" data-execution_count="38">
+<div class="cell-output cell-output-display">
+<h5>PDEs solved by model:</h5>
+
+<p>        Vlasov equation:</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + 𝐯 · ∇ f + <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span> ( 𝐄 + 𝐯 × ( 𝐁 + 𝐁₀ ) ) · <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂𝐯</span></span> = 0</span>
+<p>        Ampère's law:</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">-<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + ∇ × 𝐁 = <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>ℝ³</sub> 𝐯 f   d³ 𝐯</span>
+<p>        Faraday's law:</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐁</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + ∇ × 𝐄 = 0</span>
+<p>        where <code>Z=-1</code> and <code>A=1/1836</code> for electrons.</p>
+
+<p>        At initial time the weak Poisson equation is solved once to weakly satisfy Gauss' law,</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">
+<table class="caption-top" style="margin:0 auto;border-collapse:collapse;">
+<tbody>
+<tr class="odd">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap;">∫<sub>Ω</sub> ∇ ψ<sup>→p</sup> · ∇ φ   d 𝐱</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap;">=<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>Ω</sub> ∫<sub>ℝ³</sub> ψ   (f - f₀)   d³ 𝐯   d 𝐱    ∀ ψ ∈ H¹</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">𝐄(t=0)</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">=-∇ φ(t=0)</td>
+</tr>
+</tbody>
+</table>
+</span>
+<p>        Moreover, it is assumed that</p>
+
+        <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">∇ × 𝐁₀ = <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>ℝ³</sub> 𝐯 f₀   d³ 𝐯</span>
+<p>        where <code>𝐁₀</code> is the static equilibrium magnetic field.</p>
+</div>
+</div>
+</div>
+<div class="fragment">
+<div id="b2b99522" class="cell" data-execution_count="39">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a></a>VlasovMaxwellOneSpecies.discretization()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
+</div>
+</div>
+<div class="fragment">
+<div id="8fa9c7c4" class="cell" data-execution_count="40">
+<div class="cell-output cell-output-display">
+<h5>Discretization (Propagators called in sequence):</h5>
+
+<h5>1. propagators_fields.Maxwell:</h5>
+
+<p>FEEC discretization of the following equations:
+    find <code>𝐄 ∈ H(curl)</code> and  <code>𝐁 ∈ H(div)</code> such that
+</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">
+<table class="caption-top" style="margin:0 auto;border-collapse:collapse;">
+<tbody>
+<tr class="odd">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap;">∫<sub>Ω</sub> <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> · 𝐅   d 𝐱 - ∫<sub>Ω</sub> 𝐁 · ∇ × 𝐅  d 𝐱</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap;">=0 ,    ∀   𝐅 ∈ H(curl)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap; padding-top: 2mm;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐁</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + ∇×𝐄</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">=0 .</td>
+</tr>
+</tbody>
+</table>
+</span>
+<p>    Time discretization:</p>
+
+
+<ul>
+    <li>implicit: Crank-Nicolson (implicit mid-point)</li>
+    <li>explicit: explicit RK methods from ButcherTableau</li>
+</ul>
+
+<p>    System size reduction via <code>struphy.linear_algebra.schur_solver.SchurSolver</code>.</p>
+
+
+
+<h5>2. propagators_markers.PushEta:</h5>
+
+<p>For each marker <code>p</code>, solves</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d 𝐱ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> = 𝐯ₚ ,</span>
+<p>    for constant <code>𝐯ₚ</code> in logical space given by <code>𝐱 = F(<b>η</b>)</code>:</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d <b>η</b>ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> = DF⁻¹(<b>η</b>ₚ(t))  𝐯ₚ .</span>
+<p>    Available algorithms:</p>
+
+
+<ul>
+    <li>Explicit RK from <code>struphy.ode.utils.ButcherTableau</code></li>
+</ul>
+
+
+
+<h5>3. propagators_markers.PushVxB:</h5>
+
+<p>For each marker <code>p</code>, solves</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">d 𝐯ₚ(t)</span><span style="display:block;padding:0 0.18em;">d t</span></span> =  <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span>   𝐯ₚ(t) × (𝐁 + 𝐁<sub>add</sub>)  ,</span>
+<p>    where <code>ε = 1/(Ω̂<sub>c</sub> t̂)</code> is a constant scaling factor, and for rotation vector <code>𝐁</code> and optional, additional fixed rotation vector <code>𝐁<sub>add</sub></code>, both given as a 2-form:</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">𝐁 =  <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">DF  <b>B̂</b>²</span><span style="display:block;padding:0 0.18em;">√g</span></span> .</span>
+<p>    Available algorithms:</p>
+
+
+<ul>
+    <li><code>analytic</code></li>
+    <li><code>implicit</code>.</li>
+</ul>
+
+
+
+<h5>4. propagators_coupling.VlasovAmpere:</h5>
+
+<p>PIC-FEEC discretization of the following equations:
+    find <code>𝐄 ∈ H(curl)</code> and <code>f</code> such that
+</p>
+
+    <span style="display:block;text-align:center;font-size:1.18em;line-height:1.6;margin:0.35em 0;">
+<table class="caption-top" style="margin:0 auto;border-collapse:collapse;">
+<tbody>
+<tr class="odd">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap;">-∫<sub>Ω</sub> <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂𝐄</span><span style="display:block;padding:0 0.18em;">∂t</span></span> · 𝐅 d 𝐱</td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap;">=<span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">α²</span><span style="display:block;padding:0 0.18em;">ε</span></span> ∫<sub>Ω</sub> ∫<sub>ℝ³</sub> f 𝐯 · 𝐅   d³ 𝐯  d 𝐱    ∀   𝐅 ∈ H(curl)</td>
+</tr>
+<tr class="even">
+<td style="text-align: right; padding-right: 0.35em; vertical-align: middle; white-space: nowrap; padding-top: 2mm;"><span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂t</span></span> + <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">1</span><span style="display:block;padding:0 0.18em;">ε</span></span>  𝐄 · <span style="display:inline-flex;flex-direction:column;align-items:center;vertical-align:middle;line-height:1;margin:0 0.08em;"><span style="display:block;padding:0 0.18em;border-bottom:1px solid currentColor;">∂f</span><span style="display:block;padding:0 0.18em;">∂𝐯</span></span></td>
+<td style="text-align: left; vertical-align: middle; white-space: nowrap; padding-top: 2mm;">=0 .</td>
+</tr>
+</tbody>
+</table>
+</span>
+<p>    Time discretization: Crank-Nicolson (implicit mid-point).</p>
+
+<p>    System size reduction via <code>struphy.linear_algebra.schur_solver.SchurSolver</code>.</p>
+</div>
+</div>
+</div>
+</section></section>
+<section>
+<section id="summary" class="title-slide slide level1 center">
+<h1>Summary</h1>
+
+</section>
+<section id="takeaways-by-copilot" class="slide level2 scrollable">
+<h2>Takeaways (by copilot)</h2>
 <div style="text-align: center; margin-top: 1em">
-<div class="columns">
-<div class="column" style="width:20%;">
-<p><img data-src="dog-cartoon-struphy.jpg"></p>
-</div><div class="column" style="width:30%;">
-<p><img data-src="qrcode_slides.png"></p>
-</div><div class="column" style="width:35%;">
-<p><img data-src="MPI_PP_Logo_Vertical_cmyk-crop.jpg"></p>
-</div></div>
+<p>Struphy is designed to make advanced plasma simulation methods composable, performant, and reusable.</p>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Flexibility by design</strong>: particle methods, FEEC-based field discretizations, SPH ideas, multiple geometries, and different model ingredients can live in one common framework.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>A Lego system for models</strong>: equations, propagators, couplings, grids, domains, and post-processing tools can be combined and recombined instead of reimplemented for every new code.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Performance where it matters</strong>: high-level Python interfaces are paired with compiled kernels via Pyccel and parallel data structures built for MPI/OpenMP workflows.</li>
+</ul>
+</div>
+<div class="fragment">
+<ul>
+<li><strong>Reusable research software</strong>: once a method is implemented in Struphy, it becomes easier to test, extend, benchmark, preserve, and share across projects and generations of users.</li>
+</ul>
+</div>
+<div class="fragment">
+<div style="text-align: center; margin-top: 1.25em; font-size: 1.1em;">
+<p><strong>Goal:</strong> turn specialized plasma codes into a sustainable ecosystem of interoperable building blocks.</p>
 </div>
 
 
+</div>
 </section></section>
     </div>
   <div class="quarto-auto-generated-content" style="display: none;">
